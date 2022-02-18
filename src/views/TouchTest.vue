@@ -96,8 +96,6 @@ function getTouchPos(touchEvent, point) {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    width: 600px;
-    margin: 0 auto;
   }
 }
 /* #app {
@@ -106,8 +104,10 @@ function getTouchPos(touchEvent, point) {
 } */
 .graph {
   background-color: #222;
-  width: 600px;
-  height: 600px;
+  /* width: 600px;
+  height: 600px; */
+  width: 100%;
+  height: 100%;
 }
 .pointer {
   fill: #42b983;
