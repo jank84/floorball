@@ -23,6 +23,12 @@ const router = createRouter({
       // @ts-ignore // ignore for now, since its not valid typescript but js
       component: () => import("../views/TouchTest.vue"),
     },
+    {
+      path: "/touch-test2",
+      name: "touch-test2",
+      // @ts-ignore // ignore for now, since its not valid typescript but js
+      component: () => import("../views/TouchTest2.vue"),
+    },
   ],
 });
 

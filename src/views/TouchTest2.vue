@@ -1,12 +1,18 @@
 <template>
   <div class="about">
+    foo!
     <!-- https://codepen.io/sirlancelot/pen/NNGYEP -->
-    <svg class="graph" v-bind="graphPos">
+    <svg class="graph" v-bind="graphPos"
+        @mousedown="startMove"
+        @touchstart.prevent="startMove"
+    >
+    <path
+      style="fill:none;stroke:#42b983;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+      d="M 10, 15 138.12371,155.13402"
+      id="path857" />
       <circle
         class="pointer"
         v-bind="circlePos"
-        @mousedown="startMove"
-        @touchstart.prevent="startMove"
       ></circle>
     </svg>
   </div>
@@ -26,7 +32,7 @@ export default {
     };
   },
   mounted() {
-    console.log(`The initial count is ${this.count}.`);
+    // console.log(`The initial count is ${this.count}.`);
   },
   computed: {
     graphPos() {
@@ -115,7 +121,7 @@ function getTouchPos(touchEvent, point) {
   height: 100%;
 }
 .pointer {
-  fill: #42b983;
+  fill: #4356c0;
   cursor: pointer;
 }
 </style>
