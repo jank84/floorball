@@ -5,6 +5,8 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## hints jan
 
+https://github.com/vuejs/awesome-vue
+
 ### install nvm (node version manager)
 https://github.com/nvm-sh/nvm#installing-and-updating
 
@@ -30,14 +32,65 @@ or
 
 velur: https://marketplace.visualstudio.com/items?itemName=octref.vetur
 
+### project scripts
+build tool script are in package.json under scripts. They can be executed with `npm run <script>` or `yarn run <script>`. Yarn also shows a overview with `yarn run`.
 
-### start
+For further args scripts can provide help msgs (if underlaying tool provides it)
 ```
-npm run dev --host
+npm run dev -- --help
+# or
+yarn run dev --help
+```
+
+### dev build (using hotreload)
+```
+npm run dev -- --host
 # or
 yarn run dev --host
 ```
 
+### release build
+compiled into dist/
+```
+npm run build
+# or
+yarn run build
+```
+
+The content of dist/ can be servied wih any webserver or with
+```
+npm run preview
+# or
+yarn run preview
+```
+
+
+### tests
+
+#### unit tests
+Tests if components logic works
+Run in watch mode by default, executing on file changes.
+```
+npm run test:uni
+# or
+yarn run test:uni
+```
+#### unit e2e
+Opens cypress app window to execute integration/e2e tests. Doing so opens a browser and lets the test navigate though the page.
+Tests are in integration\*.spec.ts.
+
+```
+npm run test:e2e
+# or
+yarn run test:e2e
+```
+
+Headless run 
+```
+npm run test:e2e:ci
+# or
+yarn run test:e2e:ci
+```
 
 ## Recommended IDE Setup
 
