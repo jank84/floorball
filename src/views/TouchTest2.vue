@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    foo!
     <!-- https://codepen.io/sirlancelot/pen/NNGYEP -->
     <svg class="graph" v-bind="graphPos"
         @mousedown="startMove"
@@ -9,6 +8,10 @@
     <path
       style="fill:none;stroke:#42b983;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
       d="M 10, 15 138.12371,155.13402"
+      id="path857" />
+    <path
+      style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+      :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
       id="path857" />
       <circle
         class="pointer"
@@ -27,6 +30,12 @@ export default {
         cx: 0,
         cy: 0,
         r: 8,
+      },
+      line: {
+        start_x: 0,
+        start_y: 0,
+        end_x: 40,
+        end_y: 40,
       },
       graphSize: 100,
     };
@@ -65,6 +74,12 @@ export default {
 
       var moving = true;
       var newPt;
+      
+      // const {x, y} = point.matrixTransform(transform)
+      // console.log(`touchstart: ${getPos(evt, point)}`)
+      // this.line.start_x = x;
+      // this.line.start_y = y;
+      //TODO: get pos from touch start
 
       const updateFn = () => {
         if (moving) requestAnimationFrame(updateFn);
@@ -73,6 +88,9 @@ export default {
         newPt = point.matrixTransform(transform);
         circlePos.cx = newPt.x;
         circlePos.cy = newPt.y;
+
+        this.line.end_x = newPt.x;
+        this.line.end_y = newPt.y;
       };
       const moveFn = (evt) => getPos(evt, point);
       const stopFn = () => {
