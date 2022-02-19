@@ -20,9 +20,7 @@ const router = createRouter({
     {
       path: "/touch-test",
       name: "touch-test",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      // @ts-ignore // ignore for now, since its not valid typescript but js
       component: () => import("../views/TouchTest.vue"),
     },
   ],
