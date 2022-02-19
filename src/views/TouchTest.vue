@@ -12,8 +12,6 @@
   </div>
 </template>
 
-
-
 <script lang="js">
 export default {
   data() {
@@ -71,7 +69,7 @@ export default {
         circlePos.cy = newPt.y;
       };
       const moveFn = (evt) => getPos(evt, point);
-      const stopFn = (evt) => {
+      const stopFn = () => {
         moving = false;
         elem.removeEventListener(events.move, moveFn);
         elem.removeEventListener(events.stop, stopFn);
