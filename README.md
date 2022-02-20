@@ -68,7 +68,7 @@ Or via https with
 ```
 yarn run serve
 ```
-see [yarn run preview does not work with --https]#yarn-run-preview-does-not-work-with-https)
+see [yarn run preview does not work with](#yarn-run-preview-does-not-work-with-https)
 
 ### tests
 
