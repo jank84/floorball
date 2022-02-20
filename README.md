@@ -167,13 +167,39 @@ caused by error in compression for https/2
 fix: sirv-cli as server
 https://github.com/Greenheart/pagecrypt/issues/6#issue-866730815
 
+install sirv-cli
+```
+npm install sirv-cli -D
+```
+
 create https .pems
 ```
-    openssl req -new -x509 -keyout priv.pem -out cert.pem -days 365 -nodes
+openssl req -new -x509 -keyout priv.pem -out cert.pem -days 365 -nodes
 ```
 add to package.json
 ```
 "scripts": {
-    "serve": "sirv web/build --http2 --key priv.pem --cert cert.pem --host"
+    "serve": "sirv dist --http2 --key priv.pem --cert cert.pem --host",
 }
 ```
+
+### if yarn run build fails with  "Rollup failed to resolve import"
+
+use npm
+
+```
+# install modules
+npm install
+
+# build & serve
+npm run build
+npm run preview -- --host
+```
+
+### service worker & offline
+
+Only works with localhost: `npm run preview` not `npm run preview -- --host`
+
+Or 
+
+served on https

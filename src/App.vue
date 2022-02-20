@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "@/components/HelloWorld.vue";
+import ReloadPWA from "@/components/ReloadPWA.vue";
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
     />
 
     <div class="wrapper">
+      <ReloadPWA />
       <HelloWorld msg="You did it!" />
       <br />
       <nav>
