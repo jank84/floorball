@@ -64,6 +64,11 @@ npm run preview
 yarn run preview
 ```
 
+Or via https with
+```
+yarn run serve
+```
+see [yarn run preview does not work with --https]#yarn-run-preview-does-not-work-with-https)
 
 ### tests
 
@@ -146,4 +151,29 @@ npm run test:e2e # or `npm run test:e2e:ci` for headless testing
 
 ```sh
 npm run lint
+```
+
+
+## trouble shooting
+### yarn run preview does not work with https
+```
+yarn run preview --https
+```
+Error: ` this._implicitHeader is not a function #2754`
+https://github.com/vitejs/vite/issues/2754
+
+caused by error in compression for https/2
+
+fix: sirv-cli as server
+https://github.com/Greenheart/pagecrypt/issues/6#issue-866730815
+
+create https .pems
+```
+    openssl req -new -x509 -keyout priv.pem -out cert.pem -days 365 -nodes
+```
+add to package.json
+```
+"scripts": {
+    "serve": "sirv web/build --http2 --key priv.pem --cert cert.pem --host"
+}
 ```
