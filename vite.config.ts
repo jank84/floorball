@@ -10,6 +10,7 @@ const pwa_config = {
   srcDir: "src",
   filename: "sw.ts",
   includeAssets: ["/favicon.png"],
+  // includeAssets: ["/favicon.png", "/assets/*.svg", "assets/*.svg"], // TODO: enable assets. Does not work atm.
   strategies: "injectManifest",
   manifest: {
     name: "Test Project",
