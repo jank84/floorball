@@ -2,16 +2,24 @@
 defineProps<{
   msg: string;
 }>();
+
+import { useCounterStore } from "@/stores/counter.ts";
+
+const store = useCounterStore()
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a target="_blank" href="https://vitejs.dev/">Vite</a> +
-      <a target="_blank" href="https://vuejs.org/">Vue 3</a>. What's next?
-    </h3>
+    <h1 class="green">
+      {{ msg }}
+      <br />
+      <span v-if="store.counter > 0">
+        Here is a counter: {{store.counter}}
+        <div class="flex lg6 xs12">
+          <va-progress-circle :thickness="0.1" :modelValue="(store.counter%10*10)" />
+        </div>
+        </span>
+      </h1>
   </div>
 </template>
 

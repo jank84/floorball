@@ -16,7 +16,7 @@ import ReloadPWA from "@/components/ReloadPWA.vue";
 
     <div class="wrapper">
       <ReloadPWA />
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg="Passed msg" />
       <br />
       <nav>
         <RouterLink to="/">Home</RouterLink>
