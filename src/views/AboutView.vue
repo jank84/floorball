@@ -2,7 +2,7 @@
   <div class="about">
     <!-- <h1>This is an about page</h1>
     <br /> -->
-    <va-button outline @click="$vaToast.init('Test notification')">Test notification</va-button>
+    <va-button outline @click="$vaToast.init({ message: 'Test notification', color: 'primary' })" >Test notification</va-button>
     <va-button outline @click="btn_function1()">Inc</va-button>
     <br />
     <br />
@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { useCounterStore } from "@/stores/counter.ts";
+import { getCurrentInstance } from 'vue'
 
 export default {
   setup() {
@@ -34,12 +35,9 @@ export default {
       store.increment()
       // alert("foo")
     }
-  // const toast = (config: any) => {
-  //     if (app) {
-  //       const vaToast = app.appContext.config.globalProperties.$vaToast
-  //       vaToast.init(config)
-  //     }
-    // }
+
+
+    
 
     return { store, btn_function1 }
   },
