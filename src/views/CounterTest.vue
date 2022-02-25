@@ -2,6 +2,7 @@
   <div class="about">
     <!-- <h1>This is an about page</h1>
     <br /> -->
+    <!-- <CounterBtn /> -->
     <va-button outline @click="$vaToast.init({ message: 'Test notification', color: 'primary' })" >Test notification</va-button>
     <va-button outline @click="btn_function1()">Inc</va-button>
     <br />
@@ -26,6 +27,7 @@
 
 <script lang="ts">
 import { useCounterStore } from "@/stores/counter.ts";
+// import { CounterBtn } from "@/components/CounterBtn.vue";
 import { getCurrentInstance } from 'vue'
 
 export default {

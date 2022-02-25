@@ -3,14 +3,22 @@
   <header>
     <va-navbar color="primary" shape class="mb-2">
       <template #left>
+        <!-- <va-button icon="home" to="home" color="#fff" flat :rounded="false">touch-test</va-button> -->
         <va-navbar-item><va-button icon="info" @click="showModal = !showModal" color="#fff" flat :rounded="false" /></va-navbar-item>
         
+        <va-button icon="add" to="counter-test" color="#fff" flat :rounded="false">Counter test</va-button>
       </template>
-      <template #center>
-        <va-navbar-item><va-button icon="playlist-plus" to="/touch-test" color="#fff" flat :rounded="false" /></va-navbar-item>
-      </template>
+      <!-- <template #center>
+        <va-navbar-item>
+          Fancy logo
+        </va-navbar-item>
+      </template> -->
       <template #right>
-        <va-navbar-item><va-button icon="playlist-plus" to="/touch-test2" color="#fff" flat :rounded="false" /></va-navbar-item>
+        <va-navbar-item>
+          
+          <va-button icon="fingerprint" to="touch-test2" color="#fff" flat :rounded="false">touch-test2</va-button>
+          <va-button icon="fingerprint" to="touch-test" color="#fff" flat :rounded="false">touch-test</va-button>
+          </va-navbar-item>
       </template>
     </va-navbar>
   </header>
