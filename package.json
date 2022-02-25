@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@firebase/firestore": "^3.4.5",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-rc.2",
     "pinia": "^2.0.11",

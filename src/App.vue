@@ -5,7 +5,7 @@
       <template #left>
         <va-button icon="add" to="counter-test" color="#fff" flat :rounded="false">Counter test</va-button>
         <va-button icon="fingerprint" to="touch-test2" color="#fff" flat :rounded="false">touch-test2</va-button>
-        <va-button icon="fingerprint" to="touch-test" color="#fff" flat :rounded="false">touch-test</va-button>
+        <va-button icon="fingerprint" to="touch-test3" color="#fff" flat :rounded="false">touch-test3</va-button>
       </template>
     </va-navbar>
   </header>
