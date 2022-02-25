@@ -3522,6 +3522,16 @@
   "resolved" "https://registry.npmjs.org/map-stream/-/map-stream-0.1.0.tgz"
   "version" "0.1.0"
 
+"material-design-icons@^3.0.1":
+  "integrity" "sha1-mnHEh0chjrylHlGmbaaCA4zct78="
+  "resolved" "https://registry.npmjs.org/material-design-icons/-/material-design-icons-3.0.1.tgz"
+  "version" "3.0.1"
+
+"materialize-css@^1.0.0-rc.2":
+  "integrity" "sha512-FuQmSyq4Qv0ov7A2qXw0E6/jbQzSWx2P1pg2/XQDYTkkSc/GyiFAxu3fw9zgShwuTvyumEiw5jkxQWT9siqMBQ=="
+  "resolved" "https://registry.npmjs.org/materialize-css/-/materialize-css-1.0.0-rc.2.tgz"
+  "version" "1.0.0-rc.2"
+
 "merge-stream@^2.0.0":
   "integrity" "sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w=="
   "resolved" "https://registry.npmjs.org/merge-stream/-/merge-stream-2.0.0.tgz"

@@ -7,3 +7,12 @@ import TheWelcome from "@/components/TheWelcome.vue";
     <TheWelcome />
   </main>
 </template>
+
+
+
+
+<style scoped>
+main {
+  margin: 20px;
+}
+</style>
