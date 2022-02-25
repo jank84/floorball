@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CounterTest from "../views/CounterTest.vue";
-import TouchTest2 from "../views/TouchTest2.vue";
 import TouchTest3 from "../views/TouchTest3.vue";
+import TouchTest4 from "../views/TouchTest4.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,9 +32,9 @@ const router = createRouter({
       component: () => import("../views/TouchTest.vue"),
     },
     {
-      path: "/touch-test2",
-      name: "touch-test2",
-      component: TouchTest2,
+      path: "/touch-test4",
+      name: "touch-test4",
+      component: TouchTest4,
     },
     {
       path: "/touch-test3",
