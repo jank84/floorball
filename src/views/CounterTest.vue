@@ -7,6 +7,7 @@
     </va-badge>
     <br />
   <CounterBtn @click="btn_function1"/>
+  </div>
 </template>
 
 <script setup lang="ts">
