@@ -8,9 +8,6 @@ import TheWelcome from "@/components/TheWelcome.vue";
   </main>
 </template>
 
-
-
-
 <style scoped>
 main {
   margin: 20px;
