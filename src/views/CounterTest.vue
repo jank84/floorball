@@ -2,7 +2,6 @@
   <div class="about">
     <!-- <h1>This is an about page</h1>
     <br /> -->
-    <!-- <CounterBtn /> -->
     <va-button outline @click="$vaToast.init({ message: 'Test notification', color: 'primary' })" >Test notification</va-button>
     <va-button outline @click="btn_function1()">Inc</va-button>
     <br />
@@ -23,27 +22,23 @@
       </va-card-content>
     </va-card>
   </div>
+  <CounterBtn @click="btn_function1"/>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useCounterStore } from "@/stores/counter.ts";
-// import { CounterBtn } from "@/components/CounterBtn.vue";
+import CounterBtn from "@/components/CounterBtn.vue";
 import { getCurrentInstance } from 'vue'
 
-export default {
-  setup() {
-    const store = useCounterStore()
-    const btn_function1 = () => {
-      store.increment()
-      // alert("foo")
-    }
+  const store = useCounterStore()
+  const btn_function1 = () => {
+    store.increment()
+    // alert("foo")
+  }
 
 
     
 
-    return { store, btn_function1 }
-  },
-}
 </script>
 
 <style>
