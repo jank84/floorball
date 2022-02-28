@@ -85,42 +85,32 @@
         <circle
         class="pointer"
         v-bind="circle_pos"
-      ></circle>
+        />
 
 
+      <!-- Example menue line -->
+      <!-- <path
+        style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+        :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
+        id="path857" /> -->
 
-              <path
-          style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
-          :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
-          id="path857" />
-
-  <!-- <defs
-     id="defs2">
-    <marker
-       style="overflow:visible"
-       id="TriangleInL"
-       refX="0.0"
-       refY="0.0"
-       orient="auto"
-       inkscape:stockid="TriangleInL"
-       inkscape:isstock="true">
-      <path
-         transform="scale(-0.8)"
-         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
-         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
-         id="path6384" />
-    </marker>
-  </defs>
-  <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1">
+  <marker
+      style="overflow:visible;fill:#5527e1;stroke:#5527e1;"
+      id="TriangleOutM"
+      refX="0.0"
+      refY="0.0"
+      orient="auto">
     <path
-       style="fill:#00ff00;stroke:#00ff00;stroke-width:0.965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4825, 0.4825;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#TriangleInL)"
-       d="M 76.716492,87.943299 59.876288,88.963917"
-       id="path857"
-       sodipodi:nodetypes="cc" />
-  </g> -->
+        transform="scale(0.4)"
+        style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+        d="M 6,0.0 L 3,5.0 L 3,-5.0 L 6,0.0 z "
+        id="path1307" />
+  </marker>
+  <path
+      style="fill:none;stroke:#5527e1;stroke-width:15.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+      :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
+      id="path943"
+      sodipodi:nodetypes="cc" />
 
     </svg>
 </template>
@@ -141,21 +131,24 @@ const line = ref({
   end_y: 150,
 });
 const menu_line = ref({
-  start_x: 60,
-  start_y: 190,
-  end_x: 270,
-  end_y: 150,
+  start_x: 0,
+  start_y: 0,
+  end_x: 100,
+  end_y: 100,
 });
 const graphSize = ref(100);
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
 
-// const current_gate_pos = ref({x: 10, y: 40})
+
+const circle_pos_line = circle_pos.value
+const line_value = line.value
+const menu_line_value = menu_line.value
 
 // lifecycle hooks
-onMounted(() => {
-  console.log(`The initial count is ${count.value}.`)
-})
+// onMounted(() => {
+//   console.log(`The initial count is ${count.value}.`)
+// })
 
 const graphPos = computed(() => {
   const size = graphSize.value;
@@ -183,10 +176,6 @@ function startMove(evt) {
 
   const transform = elem.getScreenCTM().inverse();
   const getPos = touch ? getTouchPos : getMousePos;
-  // const getPosRet = touch ? getTouchPosRet : getMousePosRet;
-  const circle_pos_line = circle_pos.value
-  const line_value = line.value
-  const menu_line_value = menu_line.value
 
   let moving : boolean = true;
   let newPt;
@@ -208,18 +197,11 @@ function startMove(evt) {
   menu_line_value.start_x = newPt.x;
   menu_line_value.start_y = newPt.y;
 
-    // const {x: start_x, y: start_y} = getPosRet(evt)
-  
   const updateFn = () => {
     if (moving) requestAnimationFrame(updateFn);
-    // console.log("updateFn::point.matrixTransform", point.matrixTransform(transform))
-
+    if (!moving) return
     // Map the screen pixels back to svg coords
     newPt = point.matrixTransform(transform);
-
-    // set only on start
-    // circlePosValue.cx = newPt.x;
-    // circlePosValue.cy = newPt.y;
 
     menu_line_value.end_x = newPt.x;
     menu_line_value.end_y = newPt.y;
@@ -235,6 +217,8 @@ function startMove(evt) {
     moving = false;
     elem.removeEventListener(events.move, moveFn);
     elem.removeEventListener(events.stop, stopFn);
+
+    // set_menue_offscreen()
   };
 
   requestAnimationFrame(updateFn);
@@ -246,6 +230,7 @@ function startMove(evt) {
 
 function stopMove(evt) {
   // console.log("stopMove::evt", evt)
+  set_menue_offscreen()
 
 }
 
@@ -263,21 +248,27 @@ function getTouchPos(touchEvent, point) {
   point.y = touchEvent.touches[0].clientY;
 }
 function getTouchPosRet(touchEvent) {
- return { x: touchEvent.clientX, y: touchEvent.clientY }
+  return { x: touchEvent.clientX, y: touchEvent.clientY }
+}
+
+function set_menue_offscreen() {
+  menu_line_value.start_x = 0;
+  menu_line_value.start_y = 0;
+  menu_line_value.end_x = 0;
+  menu_line_value.end_y = 0;
+
 }
 
 </script>
 
 <style>
-.graph {
+/* .graph {
   background-color: #222;
-  /* width: 600px;
-  height: 600px; */
   width: 100%;
   height: 100%;
-}
-.pointer {
+} */
+/* .pointer {
   fill: #4356c0;
   cursor: pointer;
-}
+} */
 </style>

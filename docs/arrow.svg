@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="3.1108586"
-     inkscape:cx="359.70777"
-     inkscape:cy="289.14847"
+     inkscape:zoom="1.0998546"
+     inkscape:cx="346.40942"
+     inkscape:cy="237.7587"
      inkscape:window-width="1347"
      inkscape:window-height="1081"
      inkscape:window-x="682"
@@ -36,17 +36,17 @@
      id="defs2">
     <marker
        style="overflow:visible"
-       id="TriangleInL"
+       id="TriangleOutM"
        refX="0.0"
        refY="0.0"
        orient="auto"
-       inkscape:stockid="TriangleInL"
+       inkscape:stockid="TriangleOutM"
        inkscape:isstock="true">
       <path
-         transform="scale(-0.8)"
+         transform="scale(0.4)"
          style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
          d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
-         id="path6384" />
+         id="path1307" />
     </marker>
   </defs>
   <g
@@ -54,9 +54,9 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#00ff00;stroke:#00ff00;stroke-width:0.965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4825,0.4825;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#TriangleInL)"
-       d="M 110.73711,69.402062 93.896906,70.42268"
-       id="path857"
+       style="fill:none;stroke:#5527e1;stroke-width:5.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       d="M 36.034745,39.577723 137.24816,33.494072"
+       id="path943"
        sodipodi:nodetypes="cc" />
   </g>
 </svg>
