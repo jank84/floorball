@@ -78,24 +78,17 @@
 
         <!-- dotted red line to gate -->
         <path
-          style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+          style="stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
           :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
-          id="path857" />
+          id="gate_line" />
           <!-- Touch start point -->
         <circle
         class="pointer"
         v-bind="circle_pos"
         />
 
-
-      <!-- Example menue line -->
-      <!-- <path
-        style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
-        :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
-        id="path857" /> -->
-
   <marker
-      style="overflow:visible;fill:#5527e1;stroke:#5527e1;"
+      style="overflow:visible"
       id="TriangleOutM"
       refX="0.0"
       refY="0.0"
@@ -103,13 +96,13 @@
     <path
         transform="scale(0.4)"
         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
-        d="M 6,0.0 L 3,5.0 L 3,-5.0 L 6,0.0 z "
+        d="M 6,0.0 L -3,5.0 L -3,-5.0 L 6,0.0 z "
         id="path1307" />
   </marker>
   <path
-      style="fill:none;stroke:#5527e1;stroke-width:15.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+      style="stroke-width:15.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
       :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
-      id="path943"
+      id="menu_line"
       sodipodi:nodetypes="cc" />
 
     </svg>
@@ -133,22 +126,14 @@ const line = ref({
 const menu_line = ref({
   start_x: 0,
   start_y: 0,
-  end_x: 100,
-  end_y: 100,
+  end_x: 0,
+  end_y: 0,
 });
+set_menue_offscreen()
+
 const graphSize = ref(100);
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
-
-
-const circle_pos_line = circle_pos.value
-const line_value = line.value
-const menu_line_value = menu_line.value
-
-// lifecycle hooks
-// onMounted(() => {
-//   console.log(`The initial count is ${count.value}.`)
-// })
 
 const graphPos = computed(() => {
   const size = graphSize.value;
@@ -183,19 +168,19 @@ function startMove(evt) {
   const point = elem.createSVGPoint();
   getPos(evt, point)
   newPt = point.matrixTransform(transform);
-  circle_pos_line.cx = newPt.x;
-  circle_pos_line.cy = newPt.y;
-  line_value.end_x = newPt.x;
-  line_value.end_y = newPt.y;
+  circle_pos.value.cx = newPt.x;
+  circle_pos.value.cy = newPt.y;
+  line.value.end_x = newPt.x;
+  line.value.end_y = newPt.y;
     if (newPt.x > 370) {
     // console.log("right")
-    line_value.start_x = gate_pos_right.x 
+    line.value.start_x = gate_pos_right.x 
     } else {
     // console.log("left")
-    line_value.start_x = gate_pos_left.x 
+    line.value.start_x = gate_pos_left.x 
   }
-  menu_line_value.start_x = newPt.x;
-  menu_line_value.start_y = newPt.y;
+  menu_line.value.start_x = newPt.x;
+  menu_line.value.start_y = newPt.y;
 
   const updateFn = () => {
     if (moving) requestAnimationFrame(updateFn);
@@ -203,8 +188,8 @@ function startMove(evt) {
     // Map the screen pixels back to svg coords
     newPt = point.matrixTransform(transform);
 
-    menu_line_value.end_x = newPt.x;
-    menu_line_value.end_y = newPt.y;
+    menu_line.value.end_x = newPt.x;
+    menu_line.value.end_y = newPt.y;
 
 
 
@@ -252,10 +237,10 @@ function getTouchPosRet(touchEvent) {
 }
 
 function set_menue_offscreen() {
-  menu_line_value.start_x = 0;
-  menu_line_value.start_y = 0;
-  menu_line_value.end_x = 0;
-  menu_line_value.end_y = 0;
+  menu_line.value.start_x = 0;
+  menu_line.value.start_y = 0;
+  menu_line.value.end_x = 100;
+  menu_line.value.end_y = 100;
 
 }
 
@@ -267,8 +252,20 @@ function set_menue_offscreen() {
   width: 100%;
   height: 100%;
 } */
-/* .pointer {
-  fill: #4356c0;
+#gate_line {
+  fill:none;
+  stroke:#FF0000;
+}
+#TriangleOutM {
+  fill:#5527e1;
+  stroke:#5527e1;
+}
+#menu_line {
+  fill:none;
+  stroke:#5527e1;
+}
+.pointer {
+  fill: #5527e1;
   cursor: pointer;
-} */
+}
 </style>
