@@ -3,7 +3,7 @@
       DEBUG TEXT: {{debug_text}}
 
     </div>
-    <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
+    <svg width="100%" height="100%" viewBox="0 0 900 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
       @mouseup="stopMove"
@@ -84,7 +84,8 @@
           style="stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
           :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
           id="gate_line" />
-          <!-- Touch start point -->
+
+        <!-- Touch start point -->
         <circle
         class="pointer"
         v-bind="circle_pos"
@@ -133,6 +134,8 @@ import { Field_side_shot, Line, Direction, Goal_shot } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
 const goal_shot_store = use_goal_shot_store()
 
+
+// TODO: add emoji at shooter pos
 
 // inferred type: Ref<Field_side_shot>
 let field_side_shot = ref(null);
@@ -211,18 +214,14 @@ function startMove(evt) {
   if (newPt.x > 370) {
     // console.log("right")
     line.value.start_x = gate_pos_right.x
-
     field_side_shot.value = Field_side_shot.Right
     } else {
     // console.log("left")
-    line.value.start_x = gate_pos_left.x
     line.value.start_x = gate_pos_left.x
     field_side_shot.value = Field_side_shot.Left
   }
   menu_line.value.start_x = newPt.x;
   menu_line.value.start_y = newPt.y;
-
-
 
   const updateFn = () => {
     if (moving) requestAnimationFrame(updateFn);
@@ -286,7 +285,7 @@ function stopMove(evt) {
     start_y:  Math.round(line.value.end_y),
     timestamp: + new Date()
   }
-  menu_text.value = JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
+  menu_text.value = "🧡"+JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
   debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.start_x},${goal_shot_store.$state.last_goal_shot_data.start_y}`
 
 
