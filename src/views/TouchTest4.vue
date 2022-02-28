@@ -110,22 +110,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
+import { Line, Direction, Goal_shot } from "@/utils"
 
-enum Direction {
-  Up,
-  Down,
-  Left,
-  Right,
-}
-interface Line {
-  start_x: number;
-  start_y: number;
-  end_x: number;
-  end_y: number;
-}
-
-
-const count = ref(0);
 const circle_pos = ref({
   cx: 270,
   cy: 150,
@@ -159,7 +145,6 @@ const graphPos = computed(() => {
 })
 
 function startMove(evt) {
-  // console.log("startMove")
   const touch = evt.type === "touchstart";
   if (!touch && evt.button !== 0) return;
   const events = touch
@@ -179,14 +164,17 @@ function startMove(evt) {
   let moving : boolean = true;
   let newPt;
 
+  // set goal shot point
   const point = elem.createSVGPoint();
+  // new value is assigned to point due to svg method restriction
   getPos(evt, point)
   newPt = point.matrixTransform(transform);
   circle_pos.value.cx = newPt.x;
   circle_pos.value.cy = newPt.y;
   line.value.end_x = newPt.x;
   line.value.end_y = newPt.y;
-    if (newPt.x > 370) {
+  // right or left field
+  if (newPt.x > 370) {
     // console.log("right")
     line.value.start_x = gate_pos_right.x 
     } else {
@@ -196,12 +184,14 @@ function startMove(evt) {
   menu_line.value.start_x = newPt.x;
   menu_line.value.start_y = newPt.y;
 
+
+
   const updateFn = () => {
     if (moving) requestAnimationFrame(updateFn);
     if (!moving) return
     // Map the screen pixels back to svg coords
     newPt = point.matrixTransform(transform);
-
+    // menu arrow position
     menu_line.value.end_x = newPt.x;
     menu_line.value.end_y = newPt.y;
 
