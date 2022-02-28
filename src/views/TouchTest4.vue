@@ -111,6 +111,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
 
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+interface Line {
+  start_x: number;
+  start_y: number;
+  end_x: number;
+  end_y: number;
+}
+
+
 const count = ref(0);
 const circle_pos = ref({
   cx: 270,
@@ -191,19 +205,12 @@ function startMove(evt) {
     menu_line.value.end_x = newPt.x;
     menu_line.value.end_y = newPt.y;
 
-
-
-
-
-
   };
   const moveFn = (evt) => getPos(evt, point);
   const stopFn = () => {
     moving = false;
     elem.removeEventListener(events.move, moveFn);
     elem.removeEventListener(events.stop, stopFn);
-
-    // set_menue_offscreen()
   };
 
   requestAnimationFrame(updateFn);
@@ -214,9 +221,11 @@ function startMove(evt) {
 }
 
 function stopMove(evt) {
-  // console.log("stopMove::evt", evt)
+  // console.log(`Menue line: (${menu_line.value.start_x},${menu_line.value.start_y}) --> (${menu_line.value.end_x},${menu_line.value.end_y})`)
+  console.log(
+    Direction[calc_menue_action(menu_line.value)]
+    )
   set_menue_offscreen()
-
 }
 
 function getMousePos(mouseEvent, point) {
@@ -224,24 +233,33 @@ function getMousePos(mouseEvent, point) {
   point.y = mouseEvent.clientY;
 }
 
-function getMousePosRet(mouseEvent) {
-  return { x: mouseEvent.clientX, y: mouseEvent.clientY }
-}
-
 function getTouchPos(touchEvent, point) {
   point.x = touchEvent.touches[0].clientX;
   point.y = touchEvent.touches[0].clientY;
 }
-function getTouchPosRet(touchEvent) {
-  return { x: touchEvent.clientX, y: touchEvent.clientY }
+
+
+
+function calc_menue_action(line: Line) : Direction {
+  const x_dist = line.end_x - line.start_x
+  const y_dist = line.end_y - line.start_y
+
+  // console.log("x_dist: ", x_dist)
+  // console.log("y_dist: ", y_dist)
+
+    // more x movement than y movement
+    if ( Math.abs(x_dist) > Math.abs(y_dist)) {
+      return x_dist > 0 ?  Direction.Right : Direction.Left
+    } else {
+      return y_dist > 0 ?  Direction.Down : Direction.Up
+    }
 }
 
 function set_menue_offscreen() {
-  menu_line.value.start_x = 0;
-  menu_line.value.start_y = 0;
-  menu_line.value.end_x = 100;
-  menu_line.value.end_y = 100;
-
+  menu_line.value.start_x = -20;
+  menu_line.value.start_y = -20;
+  menu_line.value.end_x = -20;
+  menu_line.value.end_y = -20;
 }
 
 </script>
