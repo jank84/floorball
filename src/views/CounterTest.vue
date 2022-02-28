@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCounterStore } from "@/stores/counter.ts";
+import { useCounterStore } from "@/stores/counter";
 import CounterBtn from "@/components/CounterBtn.vue";
 import { getCurrentInstance } from 'vue'
 
