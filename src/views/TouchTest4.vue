@@ -3,6 +3,8 @@
     <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
+      @mouseup="stopMove"
+      @touchend.prevent="stopMove"
     >
         <g transform="matrix(1,0,0,-1,20,362.939)">
             <path d="M57.158,342.939L639.842,342.939C671.41,342.939 697,317.349 697,285.781L697,57.158C697,25.59 671.41,0 639.842,0L57.158,0C25.59,0 0,25.59 0,57.158L0,285.781C0,317.349 25.59,342.939 57.158,342.939Z" style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:0.75px;"/>
@@ -79,11 +81,47 @@
           style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
           :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
           id="path857" />
-
+          <!-- Touch start point -->
         <circle
         class="pointer"
-        v-bind="circlePos"
+        v-bind="circle_pos"
       ></circle>
+
+
+
+              <path
+          style="fill:none;stroke:#FF0000;stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+          :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
+          id="path857" />
+
+  <!-- <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="TriangleInL"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleInL"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.8)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6384" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#00ff00;stroke:#00ff00;stroke-width:0.965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4825, 0.4825;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#TriangleInL)"
+       d="M 76.716492,87.943299 59.876288,88.963917"
+       id="path857"
+       sodipodi:nodetypes="cc" />
+  </g> -->
+
     </svg>
 </template>
 
@@ -91,12 +129,18 @@
 import { ref, computed, onMounted } from "vue"
 
 const count = ref(0);
-const circlePos = ref({
+const circle_pos = ref({
   cx: 270,
   cy: 150,
   r: 8,
 });
 const line = ref({
+  start_x: 60,
+  start_y: 190,
+  end_x: 270,
+  end_y: 150,
+});
+const menu_line = ref({
   start_x: 60,
   start_y: 190,
   end_x: 270,
@@ -123,7 +167,7 @@ const graphPos = computed(() => {
 })
 
 function startMove(evt) {
-  console.log("startMove")
+  // console.log("startMove")
   const touch = evt.type === "touchstart";
   if (!touch && evt.button !== 0) return;
   const events = touch
@@ -136,34 +180,54 @@ function startMove(evt) {
         stop: "mouseup",
       };
   const elem = evt.currentTarget.closest("svg");
-  const point = elem.createSVGPoint();
+
   const transform = elem.getScreenCTM().inverse();
   const getPos = touch ? getTouchPos : getMousePos;
-  const circlePosValue = circlePos.value
-  const lineValue = line.value
+  // const getPosRet = touch ? getTouchPosRet : getMousePosRet;
+  const circle_pos_line = circle_pos.value
+  const line_value = line.value
+  const menu_line_value = menu_line.value
 
-  var moving = true;
-  var newPt;
+  let moving : boolean = true;
+  let newPt;
+
+  const point = elem.createSVGPoint();
+  getPos(evt, point)
+  newPt = point.matrixTransform(transform);
+  circle_pos_line.cx = newPt.x;
+  circle_pos_line.cy = newPt.y;
+  line_value.end_x = newPt.x;
+  line_value.end_y = newPt.y;
+    if (newPt.x > 370) {
+    // console.log("right")
+    line_value.start_x = gate_pos_right.x 
+    } else {
+    // console.log("left")
+    line_value.start_x = gate_pos_left.x 
+  }
+  menu_line_value.start_x = newPt.x;
+  menu_line_value.start_y = newPt.y;
+
+    // const {x: start_x, y: start_y} = getPosRet(evt)
   
   const updateFn = () => {
     if (moving) requestAnimationFrame(updateFn);
+    // console.log("updateFn::point.matrixTransform", point.matrixTransform(transform))
 
     // Map the screen pixels back to svg coords
     newPt = point.matrixTransform(transform);
-    circlePosValue.cx = newPt.x;
-    circlePosValue.cy = newPt.y;
 
-    lineValue.end_x = newPt.x;
-    lineValue.end_y = newPt.y;
+    // set only on start
+    // circlePosValue.cx = newPt.x;
+    // circlePosValue.cy = newPt.y;
+
+    menu_line_value.end_x = newPt.x;
+    menu_line_value.end_y = newPt.y;
 
 
-    if (newPt.x > 370) {
-      console.log("right")
-      lineValue.start_x = gate_pos_right.x 
-      } else {
-      console.log("left")
-      lineValue.start_x = gate_pos_left.x 
-    }
+
+
+
 
   };
   const moveFn = (evt) => getPos(evt, point);
@@ -180,17 +244,28 @@ function startMove(evt) {
   elem.addEventListener(events.stop, stopFn);
 }
 
+function stopMove(evt) {
+  // console.log("stopMove::evt", evt)
+
+}
+
 function getMousePos(mouseEvent, point) {
   point.x = mouseEvent.clientX;
   point.y = mouseEvent.clientY;
+}
+
+function getMousePosRet(mouseEvent) {
+  return { x: mouseEvent.clientX, y: mouseEvent.clientY }
 }
 
 function getTouchPos(touchEvent, point) {
   point.x = touchEvent.touches[0].clientX;
   point.y = touchEvent.touches[0].clientY;
 }
+function getTouchPosRet(touchEvent) {
+ return { x: touchEvent.clientX, y: touchEvent.clientY }
+}
 
-// { count, circlePos, line, graphSize, graphPos, startMove }
 </script>
 
 <style>
