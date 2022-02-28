@@ -4,8 +4,7 @@
     <va-navbar color="primary" shape class="mb-2">
       <template #left>
         <va-button icon="add" to="counter-test" color="#fff" flat :rounded="false">Counter test</va-button>
-        <va-button icon="fingerprint" to="touch-test3" color="#fff" flat :rounded="false">touch-test3</va-button>
-        <va-button icon="fingerprint" to="touch-test4" color="#fff" flat :rounded="false">touch-test4</va-button>
+        <va-button icon="fingerprint" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
       </template>
     </va-navbar>
   </header>

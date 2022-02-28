@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CounterTest from "../views/CounterTest.vue";
-import TouchTest3 from "../views/TouchTest3.vue";
-import TouchTest4 from "../views/TouchTest4.vue";
+import GoalShots from "../views/GoalShots.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,20 +25,10 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/touch-test",
-      name: "touch-test",
+      path: "/goal-shots",
+      name: "goal-shots",
       // @ts-ignore // ignore for now, since its not valid typescript but js
-      component: () => import("../views/TouchTest.vue"),
-    },
-    {
-      path: "/touch-test4",
-      name: "touch-test4",
-      component: TouchTest4,
-    },
-    {
-      path: "/touch-test3",
-      name: "touch-test3",
-      component: TouchTest3,
+      component:GoalShots,
     },
   ],
 });

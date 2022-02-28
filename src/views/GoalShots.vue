@@ -1,6 +1,6 @@
 <template>
     <div>
-      Temp help text 
+      DEBUG TEXT: {{debug_text}}
 
     </div>
     <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
@@ -158,6 +158,7 @@ const menu_line = ref({
 set_menue_offscreen()
 
 let menu_text = ref("")
+let debug_text = ref("")
 
 
 const graphSize = ref(100);
@@ -249,14 +250,8 @@ function startMove(evt) {
 
 function stopMove(evt) {
   // console.log(`Menue line: (${menu_line.value.start_x},${menu_line.value.start_y}) --> (${menu_line.value.end_x},${menu_line.value.end_y})`)
-  // console.log(
-  //   Direction[]
-  //   )
-
   const menue_direction = calc_menue_action(menu_line.value)
   let menue_action = null;
-
-
 
   switch (menue_direction) {
       case Direction.Up:
@@ -292,6 +287,7 @@ function stopMove(evt) {
     timestamp: + new Date()
   }
   menu_text.value = JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
+  debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.start_x},${goal_shot_store.$state.last_goal_shot_data.start_y}`
 
 
   set_menue_offscreen()
