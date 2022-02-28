@@ -1,5 +1,8 @@
 <template>
-    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <div>
+      Temp help text 
+
+    </div>
     <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
@@ -87,6 +90,7 @@
         v-bind="circle_pos"
         />
 
+  <!-- menue arrow tip -->
   <marker
       style="overflow:visible"
       id="TriangleOutM"
@@ -94,35 +98,57 @@
       refY="0.0"
       orient="auto">
     <path
-        transform="scale(0.4)"
+        transform="scale(0.5)"
         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
         d="M 6,0.0 L -3,5.0 L -3,-5.0 L 6,0.0 z "
         id="path1307" />
   </marker>
+  <!-- menue arrow line -->
   <path
-      style="stroke-width:15.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+      style="stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
       :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
       id="menu_line"
       sodipodi:nodetypes="cc" />
 
+    <!-- menue arrow tip text-->
+    <text
+      xml:space="preserve"
+      style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+      x="0"
+      y="0"
+      id="text8409"><tspan
+        sodipodi:role="line"
+        id="tspan8407"
+        style="stroke-width:0.264583"
+        :x="menu_line.end_x-20"
+        :y="menu_line.end_y-40"
+        >{{menu_text}}</tspan></text>
     </svg>
+
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
-import { Line, Direction, Goal_shot } from "@/utils"
+import { Field_side_shot, Line, Direction, Goal_shot } from "@/utils"
+import { use_goal_shot_store } from "@/stores/goal_shots";
+const goal_shot_store = use_goal_shot_store()
 
+
+// inferred type: Ref<Field_side_shot>
+let field_side_shot = ref(null);
 const circle_pos = ref({
-  cx: 270,
-  cy: 150,
+  cx: 0,
+  cy: 0,
   r: 8,
 });
+// inferred type: Ref<Line>
 const line = ref({
-  start_x: 60,
-  start_y: 190,
-  end_x: 270,
-  end_y: 150,
+  start_x: 0,
+  start_y: 0,
+  end_x: 0,
+  end_y: 0,
 });
+// inferred type: Ref<Line>
 const menu_line = ref({
   start_x: 0,
   start_y: 0,
@@ -131,7 +157,12 @@ const menu_line = ref({
 });
 set_menue_offscreen()
 
+let menu_text = ref("")
+
+
 const graphSize = ref(100);
+
+
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
 
@@ -171,15 +202,21 @@ function startMove(evt) {
   newPt = point.matrixTransform(transform);
   circle_pos.value.cx = newPt.x;
   circle_pos.value.cy = newPt.y;
+  line.value.start_y = 190
   line.value.end_x = newPt.x;
   line.value.end_y = newPt.y;
+
   // right or left field
   if (newPt.x > 370) {
     // console.log("right")
-    line.value.start_x = gate_pos_right.x 
+    line.value.start_x = gate_pos_right.x
+
+    field_side_shot.value = Field_side_shot.Right
     } else {
     // console.log("left")
-    line.value.start_x = gate_pos_left.x 
+    line.value.start_x = gate_pos_left.x
+    line.value.start_x = gate_pos_left.x
+    field_side_shot.value = Field_side_shot.Left
   }
   menu_line.value.start_x = newPt.x;
   menu_line.value.start_y = newPt.y;
@@ -212,9 +249,51 @@ function startMove(evt) {
 
 function stopMove(evt) {
   // console.log(`Menue line: (${menu_line.value.start_x},${menu_line.value.start_y}) --> (${menu_line.value.end_x},${menu_line.value.end_y})`)
-  console.log(
-    Direction[calc_menue_action(menu_line.value)]
-    )
+  // console.log(
+  //   Direction[]
+  //   )
+
+  const menue_direction = calc_menue_action(menu_line.value)
+  let menue_action = null;
+
+
+
+  switch (menue_direction) {
+      case Direction.Up:
+        menue_action = Goal_shot.Scored
+        break;
+      case Direction.Down:
+        menue_action = Goal_shot.Block_player
+        break;
+      case Direction.Left: // depending on play side
+        if (field_side_shot.value.Left) {
+          menue_action = Goal_shot.Block_goalkeeper
+        } else {
+          menue_action = Goal_shot.miss
+        }
+        break;
+      case Direction.Right:
+        if (field_side_shot.value.Right) {
+          menue_action = Goal_shot.Block_goalkeeper
+        } else {
+          menue_action = Goal_shot.miss
+        }
+        break;
+      default:
+        console.error("goal menue direction error:", menue_direction);
+        break;
+  }
+
+  goal_shot_store.$state.last_goal_shot_data = {
+    team: field_side_shot.value,
+    kind: menue_action,
+    start_x: Math.round(line.value.end_x),
+    start_y:  Math.round(line.value.end_y),
+    timestamp: + new Date()
+  }
+  menu_text.value = JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
+
+
   set_menue_offscreen()
 }
 
@@ -250,6 +329,7 @@ function set_menue_offscreen() {
   menu_line.value.start_y = -20;
   menu_line.value.end_x = -20;
   menu_line.value.end_y = -20;
+  field_side_shot.value = null
 }
 
 </script>

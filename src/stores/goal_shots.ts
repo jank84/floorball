@@ -9,7 +9,7 @@ export const use_goal_shot_store = defineStore({
       kind: null, // Goal_shot
       start_x: null, // number 
       start_y: null, // number
-      timestamp: null // timestamp (+ new Date())
+      timestamp: null // timestamp
     },
   }),
   getters: {},

@@ -15,3 +15,7 @@ export interface Line {
   end_x: number;
   end_y: number;
 }
+
+export enum Field_side_shot {
+  Left, Right
+}
