@@ -81,7 +81,7 @@
 
         <!-- dotted red line to gate -->
         <path
-          style="stroke-width:.2em;stroke-linecap:butt;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,2;"
+        style="stroke-width:.2em;stroke-linecap:butt;stroke-opacity:0.4;stroke-miterlimit:4;stroke-dasharray:5,2;"
           :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
           id="gate_line" />
 
@@ -113,17 +113,10 @@
 
     <!-- menue arrow tip text-->
     <text
-      xml:space="preserve"
       style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-      x="0"
-      y="0"
-      id="text8409"><tspan
-        sodipodi:role="line"
-        id="tspan8407"
-        style="stroke-width:0.264583"
         :x="menu_line.end_x-20"
         :y="menu_line.end_y-40"
-        >{{menu_text}}</tspan></text>
+      >{{menu_text}}</text>
     </svg>
 
 </template>
@@ -337,7 +330,7 @@ function set_menue_offscreen() {
 } */
 #gate_line {
   fill:none;
-  stroke:#FF0000;
+  stroke: grey;
 }
 #TriangleOutM {
   fill:#5527e1;
