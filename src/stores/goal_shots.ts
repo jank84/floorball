@@ -1,5 +1,13 @@
 import { defineStore } from "pinia";
-// import { Goal_shot } from "@/utils"
+import { Goal_shot_outcome } from "@/utils"
+
+interface Goal_shot {
+  team?: boolean
+  kind?: Goal_shot
+  start_x?: number
+  start_y?: number
+  timestamp?: Date 
+}
 
 export const use_goal_shot_store = defineStore({
   id: "goal_shot",
@@ -11,7 +19,23 @@ export const use_goal_shot_store = defineStore({
       start_y: null, // number
       timestamp: null // timestamp
     },
+    goal_shot_data: [],
   }),
   getters: {},
   actions: {},
 });
+
+
+// import { generateFakeData, Item } from "@/models/item.model";
+// import { defineStore } from "pinia";
+
+// export type RootState = {
+//   items: Item[];
+// };
+
+// export const useMainStore = defineStore({
+//   id: "mainStore",
+//   state: () =>
+//     ({
+//       items: [],
+//     } as RootState),

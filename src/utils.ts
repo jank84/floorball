@@ -5,7 +5,7 @@ export enum Direction {
   Right
 };
 
-export enum Goal_shot {
+export enum Goal_shot_outcome {
   Scored, Block_goalkeeper,Block_player, Miss
 };
 

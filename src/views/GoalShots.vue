@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <!-- <div>
       DEBUG TEXT: {{debug_text}}
-
-    </div>
+    </div> -->
     <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
@@ -79,54 +78,43 @@
           <path d="M0,0L597.939,0" style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:0.5px;"/>
       </g>
 
-      <!-- dotted red line to gate -->
-      <path
-        :style="`stroke:${goal_shot_color};stroke-width:.2em;stroke-linecap:butt;stroke-opacity:0.4;stroke-miterlimit:4;stroke-dasharray:5,2;`"
-        :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
-        id="gate_line" />
+      <SvgGoalShot :line="line" :goal_shot_marker="goal_shot_marker" :goal_shot_color="goal_shot_color"/>
 
-      <!-- Touch start point -->
-      <!-- <circle class="pointer" v-bind="circle_pos" /> -->
+      <!-- menue arrow tip -->
+      <marker
+          style="overflow:visible"
+          id="TriangleOutM"
+          refX="0.0"
+          refY="0.0"
+          orient="auto">
+        <path
+            transform="scale(0.5)"
+            style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+            d="M 6,0.0 L -3,5.0 L -3,-5.0 L 6,0.0 z "
+            id="path1307" />
+      </marker>
+      <!-- menue arrow line -->
+      <path
+          style="stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+          :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
+          id="menu_line"
+          sodipodi:nodetypes="cc" />
+
+      <!-- menue arrow tip text-->
       <text
-      style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-      :x="circle_pos.cx-8"
-      :y="circle_pos.cy+4"
-      >{{goal_shot_marker}}</text>
-
-    <!-- menue arrow tip -->
-    <marker
-        style="overflow:visible"
-        id="TriangleOutM"
-        refX="0.0"
-        refY="0.0"
-        orient="auto">
-      <path
-          transform="scale(0.5)"
-          style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
-          d="M 6,0.0 L -3,5.0 L -3,-5.0 L 6,0.0 z "
-          id="path1307" />
-    </marker>
-    <!-- menue arrow line -->
-    <path
-        style="stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:20.66,5.165;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleOutM)"
-        :d="`M ${menu_line.start_x}, ${menu_line.start_y} ${menu_line.end_x}, ${menu_line.end_y}`"
-        id="menu_line"
-        sodipodi:nodetypes="cc" />
-
-    <!-- menue arrow tip text-->
-    <text
-      style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-      :x="menu_line.end_x-20"
-      :y="menu_line.end_y-40"
-      >{{menu_text}}</text>
-    </svg>
+        style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+        :x="menu_line.end_x-20"
+        :y="menu_line.end_y-40"
+        >{{menu_text}}</text>
+      </svg>
 
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
-import { Field_side_shot, Line, Direction, Goal_shot, goal_icons } from "@/utils"
+import { Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
+import SvgGoalShot from "@/components/SvgGoalShot.vue";
 const goal_shot_store = use_goal_shot_store()
 
 
@@ -253,23 +241,23 @@ function stopMove(evt) {
 
   switch (menue_direction) {
       case Direction.Up:
-        menue_action = Goal_shot.Scored
+        menue_action = Goal_shot_outcome.Scored
         break;
       case Direction.Down:
-        menue_action = Goal_shot.Block_player
+        menue_action = Goal_shot_outcome.Block_player
         break;
       case Direction.Left: // depending on play side
         if (field_side_shot.value == Field_side_shot.Left) {
-          menue_action = Goal_shot.Block_goalkeeper
+          menue_action = Goal_shot_outcome.Block_goalkeeper
         } else {
-          menue_action = Goal_shot.Miss
+          menue_action = Goal_shot_outcome.Miss
         }
         break;
       case Direction.Right:
         if (field_side_shot.value == Field_side_shot.Right) {
-          menue_action = Goal_shot.Block_goalkeeper
+          menue_action = Goal_shot_outcome.Block_goalkeeper
         } else {
-          menue_action = Goal_shot.Miss
+          menue_action = Goal_shot_outcome.Miss
         }
         break;
       default:
@@ -286,21 +274,21 @@ function stopMove(evt) {
   }
   // menu_text.value = "🧡"+JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
   // debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.start_x},${goal_shot_store.$state.last_goal_shot_data.start_y}`
-  goal_shot_marker.value = goal_icons[Goal_shot[menue_action]]
+  goal_shot_marker.value = goal_icons[Goal_shot_outcome[menue_action]]
 
  
 
   switch (menue_action) {
-    case Goal_shot.Scored:
+    case Goal_shot_outcome.Scored:
       goal_shot_color.value = "green"
     break;
-    case Goal_shot.Block_player:
+    case Goal_shot_outcome.Block_player:
       goal_shot_color.value = "grey"
     break;
-    case Goal_shot.Block_goalkeeper:
+    case Goal_shot_outcome.Block_goalkeeper:
       goal_shot_color.value = "red"
     break;
-    case Goal_shot.Miss:
+    case Goal_shot_outcome.Miss:
       goal_shot_color.value = "red"
     break;
   }
