@@ -26,3 +26,11 @@ export const goal_icons = {
   Block_player: "⬜",
   Miss: "🔻"
 }
+
+export interface Goal_shot {
+  team?: boolean
+  kind?: Goal_shot
+  start_x?: number
+  start_y?: number
+  timestamp?: Date
+}
