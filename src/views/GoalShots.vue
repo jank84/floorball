@@ -112,7 +112,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
-import { Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
+import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
 import type { Goal_shot } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
@@ -269,38 +269,18 @@ function stopMove(evt) {
   const goal_shot: Goal_shot = {
     team: field_side_shot.value,
     kind: menue_action,
-    start_x: Math.round(line.value.end_x),
-    start_y:  Math.round(line.value.end_y),
+    x: Math.round(line.value.end_x),
+    y:  Math.round(line.value.end_y),
     timestamp: new Date()
   }
 
-  // const goal_shot = {
-  //   team: field_side_shot.value,
-  //   kind: menue_action,
-  //   start_x: Math.round(line.value.end_x),
-  //   start_y:  Math.round(line.value.end_y),
-  //   timestamp: new Date()
-  // } as Goal_shot
-
   goal_shot_store.$state.last_goal_shot_data = goal_shot
+  goal_shot_store.$state.goal_shot_data.push(goal_shot)
+  
   // menu_text.value = "🧡"+JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
   // debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.start_x},${goal_shot_store.$state.last_goal_shot_data.start_y}`
   goal_shot_marker.value = goal_icons[Goal_shot_outcome[menue_action]]
-
-  switch (menue_action) {
-    case Goal_shot_outcome.Scored:
-      goal_shot_color.value = "green"
-    break;
-    case Goal_shot_outcome.Block_player:
-      goal_shot_color.value = "grey"
-    break;
-    case Goal_shot_outcome.Block_goalkeeper:
-      goal_shot_color.value = "red"
-    break;
-    case Goal_shot_outcome.Miss:
-      goal_shot_color.value = "red"
-    break;
-  }
+  goal_shot_color.value = goal_line_colors[Goal_shot_outcome[menue_action]]
 
   set_menue_offscreen()
 }

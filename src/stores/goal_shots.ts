@@ -9,8 +9,8 @@ export const use_goal_shot_store = defineStore({
     last_goal_shot_data: {
       team: undefined,
       kind: undefined,
-      start_x: undefined,
-      start_y: undefined,
+      x: undefined,
+      y: undefined,
       timestamp: undefined
     } as Goal_shot,
     goal_shot_data: [] as Goal_shot[],

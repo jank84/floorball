@@ -26,11 +26,17 @@ export const goal_icons = {
   Block_player: "⬜",
   Miss: "🔻"
 }
+export const goal_line_colors = {
+  Scored: "green",
+  Block_goalkeeper: "red",
+  Block_player: "grey",
+  Miss: "red"
+}
 
 export interface Goal_shot {
   team?: boolean
-  kind?: Goal_shot
-  start_x?: number
-  start_y?: number
+  kind?: Goal_shot_outcome
+  x?: number
+  y?: number
   timestamp?: Date
 }
