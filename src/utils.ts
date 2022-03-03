@@ -6,7 +6,7 @@ export enum Direction {
 };
 
 export enum Goal_shot {
-  Scored, Block_goalkeeper, Block_own_player, Block_other_player, Block_player, miss
+  Scored, Block_goalkeeper,Block_player, Miss
 };
 
 export interface Line {
@@ -18,4 +18,11 @@ export interface Line {
 
 export enum Field_side_shot {
   Left, Right
+}
+
+export const goal_icons = {
+  Scored: "🟢",
+  Block_goalkeeper: "🟥",
+  Block_player: "⬜",
+  Miss: "🔻"
 }

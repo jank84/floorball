@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Goal_shot } from "@/utils"
+// import { Goal_shot } from "@/utils"
 
 export const use_goal_shot_store = defineStore({
   id: "goal_shot",
