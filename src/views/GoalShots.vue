@@ -2,7 +2,7 @@
     <!-- <div>
       DEBUG TEXT: {{debug_text}}
     </div> -->
-    <svg width="100%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
+    <svg width="80%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
       @mouseup="stopMove"
@@ -100,12 +100,26 @@
           id="menu_line"
           sodipodi:nodetypes="cc" />
 
-      <!-- menue arrow tip text-->
+      <!-- Big corner action symbol -->
       <text
+        style="font-style:normal;font-weight:normal;font-size:42px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:.9;stroke:none;stroke-width:0.264583"
+        x=".2em"
+        y="1em"
+        >{{goal_shot_marker}}</text>
+
+      <!-- menue arrow tip action symbol-->
+      <!-- <text
+        style="font-style:normal;font-weight:normal;font-size:42px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:.7;stroke:none;stroke-width:0.264583"
+        :x="menu_line.end_x-20"
+        :y="menu_line.end_y-40"
+        >{{goal_shot_marker}}</text> -->
+
+      <!-- menue arrow tip text-->
+      <!-- <text
         style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
         :x="menu_line.end_x-20"
         :y="menu_line.end_y-40"
-        >{{menu_text}}</text>
+        >{{menu_text}}</text> -->
       </svg>
 
 </template>
@@ -220,6 +234,12 @@ function startMove(evt) {
     menu_line.value.end_x = newPt.x;
     menu_line.value.end_y = newPt.y;
 
+    // calc action
+    const menue_direction = calc_menue_action(menu_line.value)
+    const menue_action = get_menue_action(menue_direction);
+    goal_shot_marker.value = goal_icons[Goal_shot_outcome[menue_action]]
+    goal_shot_color.value = goal_line_colors[Goal_shot_outcome[menue_action]]
+
   };
   const moveFn = (evt) => getPos(evt, point);
   const stopFn = () => {
@@ -238,33 +258,7 @@ function startMove(evt) {
 function stopMove(evt) {
   // console.log(`Menue line: (${menu_line.value.start_x},${menu_line.value.start_y}) --> (${menu_line.value.end_x},${menu_line.value.end_y})`)
   const menue_direction = calc_menue_action(menu_line.value)
-  let menue_action = null;
-
-  switch (menue_direction) {
-      case Direction.Up:
-        menue_action = Goal_shot_outcome.Scored
-        break;
-      case Direction.Down:
-        menue_action = Goal_shot_outcome.Block_player
-        break;
-      case Direction.Left: // depending on play side
-        if (field_side_shot.value == Field_side_shot.Left) {
-          menue_action = Goal_shot_outcome.Block_goalkeeper
-        } else {
-          menue_action = Goal_shot_outcome.Miss
-        }
-        break;
-      case Direction.Right:
-        if (field_side_shot.value == Field_side_shot.Right) {
-          menue_action = Goal_shot_outcome.Block_goalkeeper
-        } else {
-          menue_action = Goal_shot_outcome.Miss
-        }
-        break;
-      default:
-        console.error("goal menue direction error:", menue_direction);
-        break;
-  }
+  const menue_action = get_menue_action(menue_direction);
 
   const goal_shot: Goal_shot = {
     team: field_side_shot.value,
@@ -313,11 +307,41 @@ function calc_menue_action(line: Line) : Direction {
 }
 
 function set_menue_offscreen() {
-  menu_line.value.start_x = -20;
-  menu_line.value.start_y = -20;
-  menu_line.value.end_x = -20;
-  menu_line.value.end_y = -20;
+  menu_line.value.start_x = -200;
+  menu_line.value.start_y = -200;
+  menu_line.value.end_x = -200;
+  menu_line.value.end_y = -200;
   field_side_shot.value = null
+}
+
+
+function get_menue_action(menue_direction: Direction): Goal_shot_outcome {
+  switch (menue_direction) {
+    case Direction.Up:
+      return Goal_shot_outcome.Scored
+      break;
+    case Direction.Down:
+      return Goal_shot_outcome.Block_player
+      break;
+    case Direction.Left: // depending on play side
+      if (field_side_shot.value == Field_side_shot.Left) {
+        return Goal_shot_outcome.Block_goalkeeper
+      } else {
+        return Goal_shot_outcome.Miss
+      }
+      break;
+    case Direction.Right:
+      if (field_side_shot.value == Field_side_shot.Right) {
+        return Goal_shot_outcome.Block_goalkeeper
+      } else {
+        return Goal_shot_outcome.Miss
+      }
+      break;
+    default:
+      console.error("goal menue direction error:", menue_direction);
+      return
+      break;
+  }
 }
 
 </script>
