@@ -39,3 +39,5 @@ const counterVal = computed(() => store.$state.current_counter.counter)
 
 // const selected_counter = ref(counters[0])
 </script>
+
+// TODO: show all counter at once

@@ -63,7 +63,7 @@ global_props_data.$subscribe((e)=>{
 })
 
 function set_games_select_obj() {
-  const find_selected_game = games.value.find(g => g.id == global_props_data.$state.current_game.game_id_display)
+  const find_selected_game = games.value.find(g => g.id == global_props_data.$state.current_game.game_id)
   selected_game.value = find_selected_game ? find_selected_game : selected_game.value
 }
 </script>

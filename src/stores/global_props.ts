@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { counter_store } from "@/stores/counter";
+import { game_store } from "@/stores/game";
 import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config"
 
@@ -9,34 +10,56 @@ interface Game {
   team2: string
 }
 
-interface Current_game {
-  game_id_display?: string
+interface Game_meta {
+  game_id?: string
   period?: number
 }
+
+
+/// distinguesh between display game game_id & periode display
 
 export const global_props = defineStore({
   id: "global_props",
   state: () => ({
     current_game: {
-      game_id_display: undefined,
+      game_id: undefined,
       period: undefined
-    } as Current_game,
-    games_raw: [] as Game[]
+    } as Game_meta,
+    current_display_game: {
+      game_id: undefined,
+      period: undefined
+    } as Game_meta,
+    games_raw: [] as Game[],
+    counter_types: [] as string[]
   }),
   getters: {},
   actions: {
     async set_period(val: number) {
       this.current_game.period = val
-      console.log("set_current_game_period", this.current_game.period)
+      // console.log("set_current_game_period", this.current_game.period)
       await setDoc(doc(db, "global_props", firstDoc.id), {
-        period: this.current_game.period,
+        current_game: { period: this.current_game.period},
       }, { merge: true });      
     },
-    async set_game_id_display(val: string) {
-      this.current_game.game_id_display = val
-      console.log("set_current_game_for_display", this.current_game.game_id_display)
+    async set_game_id(val: string) {
+      this.current_game.game_id = val
+      // console.log("set_current_game_for_display", this.current_game.game_id)
       await setDoc(doc(db, "global_props", firstDoc.id), {
-        game_id_display: this.current_game.game_id_display,
+        current_game: { game_id: this.current_game.game_id}
+      }, { merge: true });      
+    },
+    async set_display_period(val: number) {
+      this.current_display_game.period = val
+      // console.log("set_current_game_period", this.current_display_game.period)
+      await setDoc(doc(db, "global_props", firstDoc.id), {
+        current_display_game: { period: this.current_display_game.period},
+      }, { merge: true });      
+    },
+    async set_display_game_id(val: string) {
+      this.current_display_game.game_id = val
+      // console.log("set_current_game_for_display", this.current_display_game.game_id)
+      await setDoc(doc(db, "global_props", firstDoc.id), {
+        current_display_game: { game_id: this.current_display_game.game_id}
       }, { merge: true });      
     },
   },
@@ -55,11 +78,21 @@ async function init() {
     const new_data = doc.data()
     // TODO: catch new_data not well formatted
     console.log("Newly received global_props: ", new_data);
-    global_props().$state.current_game = { game_id_display: new_data.game_id_display,  period: new_data.period }
+    global_props().$state.counter_types = new_data.current_game.counter_types
+    global_props().$state.current_game = { game_id: new_data.current_game.game_id,  period: new_data.current_game.period }
+    global_props().$state.current_display_game = { game_id: new_data.current_display_game.game_id,  period: new_data.current_display_game.period }
+    
 
     // inform other stores
-    counter_store().$state.game_id = new_data.game_id_display
-    counter_store().$state.periode = new_data.period
+    counter_store().$state.current_counter.game_id = new_data.current_game.game_id
+    counter_store().$state.current_counter.periode = new_data.current_game.period
+
+
+    // counter_store().$state.current_counter.game_id = new_data.current_game.game_id
+    // counter_store().$state.current_counter.periode = new_data.current_game.period
+
+    // game_store().$state.current_counter.game_id = new_data.current_game.game_id
+    game_store().bootstrap(new_data.current_game.game_id)
   });
 
   const unsubscribe = onSnapshot(query(collection(db, "games_raw")), (querySnapshot) => {
