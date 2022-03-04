@@ -45,42 +45,23 @@ import { ref } from "vue";
 const showModal = ref(false);
 const global_props_data = global_props()
 
-
-
-
-// const games = global_props_data.games_raw.map(g => `${g.team1} - ${g.team2}`)
-// const games = computed(() => global_props_data.games_raw.map(g => `${g.team1} - ${g.team2}`))
-// const games = computed(() => global_props_data.games_raw.map(((e,i) => ({ label: `${e.team1} - ${e.team2}`, value: i }))))
 const games = computed(() => global_props_data.games_raw.map((e, i) => {
-  return { text: `${e.team1} - ${e.team2}`, value: i,  id: i }
+  return { text: `${e.team1} - ${e.team2}`, value: i,  id: e.id }
   }))
 
-
-// {
-//         text: 'First',
-//         value: '1',
-//         id: '1',
-//       },
-
 const selected_game = ref({})
-
+set_games_select_obj()
 
 // on data change from firebase
 global_props_data.$subscribe((e)=>{
   // WARNING: this selected_game is currently changed by admin ctrls
-  selected_game.value = games.value.find(g => g.id == global_props_data.$state.current_game.game_id_display)
+  set_games_select_obj()
 })
 
-// // on click in ui
-// function change_game_period(val) {
-//   global_props_data.set_period(current_game_period.value)
-// }
-
-
-
-
-// console.log("global_props_data", global_props_data.$state.)
-
+function set_games_select_obj() {
+  const find_selected_game = games.value.find(g => g.id == global_props_data.$state.current_game.game_id_display)
+  selected_game.value = find_selected_game ? find_selected_game : selected_game.value
+}
 </script>
 
 <style>
