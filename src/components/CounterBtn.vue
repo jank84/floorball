@@ -6,7 +6,7 @@
 
 <style scoped>
 .block {
-  width:60% !important;
+  width:56%;
   padding: 4em 0;
   margin: 1em 22%;
 }
