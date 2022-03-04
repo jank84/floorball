@@ -125,7 +125,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue"
+import { Ref, ref, computed, onMounted } from "vue"
 import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
 import type { Goal_shot } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
@@ -135,22 +135,20 @@ const goal_shot_store = use_goal_shot_store()
 
 // ###### init start ######
 
-// inferred type: Ref<Field_side_shot>
-let field_side_shot = ref(null);
+
+let field_side_shot: Ref<Field_side_shot> = ref();
 const circle_pos = ref({
   cx: 0,
   cy: 0,
   r: 8,
 });
-// inferred type: Ref<Line>
-const line = ref({
+const line: Ref<Line> = ref({
   start_x: 0,
   start_y: 0,
   end_x: 0,
   end_y: 0,
 });
-// inferred type: Ref<Line>
-const menu_line = ref({
+const menu_line: Ref<Line> = ref({
   start_x: 0,
   start_y: 0,
   end_x: 0,
