@@ -4,10 +4,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { use_goal_shot_store } from "@/stores/goal_shots";
-  const store = use_goal_shot_store()
+import { game_store } from "@/stores/game";
+  const store = game_store()
   const raw_json = ref(JSON.stringify(
-    store.$state.last_goal_shot_data,
+    store.$state.current_display_game,
     null,
     2
   ));

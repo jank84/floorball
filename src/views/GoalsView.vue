@@ -79,7 +79,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue"
-import { use_goal_shot_store } from "@/stores/goal_shots";
 import { game_store } from "@/stores/game";
 import { global_props } from "@/stores/global_props";
 
@@ -88,9 +87,6 @@ import SvgGoalShot from "@/components/SvgGoalShot.vue";
 
 const game_data = game_store()
 const global_props_data = global_props()
-// const store = use_goal_shot_store()
-// const goal_shot_data = store.$state.goal_shot_data
-// const goal_shots = computed(() => game_data.$state.current_display_game.goal_shots)
 
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};

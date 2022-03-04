@@ -128,11 +128,9 @@
 import { Ref, ref, computed, onMounted } from "vue"
 import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
 import type { Goal_shot } from "@/utils"
-import { use_goal_shot_store } from "@/stores/goal_shots";
 import { game_store } from "@/stores/game";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
 
-const goal_shot_store = use_goal_shot_store()
 const game_data = game_store()
 
 // ###### init start ######
@@ -291,10 +289,6 @@ function stopMove(evt) {
     timestamp: new Date()
   }
 
-  // TODO: rm obsolete stores after conversion
-  goal_shot_store.$state.last_goal_shot_data = goal_shot
-  goal_shot_store.$state.goal_shot_data.push(goal_shot)
-
   game_data.save_goal_shot(goal_shot)
 
   
@@ -375,11 +369,6 @@ function get_menue_action(menue_direction: Direction): Goal_shot_outcome {
 </script>
 
 <style>
-/* .graph {
-  background-color: #222;
-  width: 100%;
-  height: 100%;
-} */
 #gate_line {
   fill:none;
   stroke: grey;
