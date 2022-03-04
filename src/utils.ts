@@ -23,8 +23,8 @@ export enum Field_side_shot {
 export const goal_icons = {
   Scored: "🟢",
   Block_goalkeeper: "🟥",
-  Block_player: "⬜",
-  Miss: "❌"
+  Block_player: "🟧",
+  Miss: "⚪"
 }
 export const goal_line_colors = {
   Scored: "green",

@@ -4,7 +4,7 @@
     <va-navbar color="primary" shape class="mb-2">
       <template #left>
         <va-navbar-item><va-button icon="info" @click="showModal = !showModal" color="#fff" flat :rounded="false" /></va-navbar-item>
-        <va-button icon="exposure_plus_1" to="counter" color="#fff" flat :rounded="false">Counter test</va-button>
+        <va-button icon="exposure_plus_1" to="counter" color="#fff" flat :rounded="false">Counter</va-button>
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
         <va-button icon="open_in_new" to="goalsview" color="#fff" flat :rounded="false">Open goalsview</va-button>
       </template>
@@ -15,9 +15,8 @@
   </header>
   <RouterView />
 
-  <va-modal v-model="showModal" title="Info" fullscreen hide-default-actions>
-    Information zur app hier.
-    <TheWelcome />
+  <va-modal v-model="showModal" title="Info" hide-default-actions>
+    <InfoPage />
     <template #footer>
       <va-button color="danger" class="mr-4" @click="showModal = !showModal">
         Schließen
@@ -31,7 +30,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "@/components/HelloWorld.vue";
 import ReloadPWA from "@/components/ReloadPWA.vue";
-import TheWelcome from "@/components/TheWelcome.vue";
+import InfoPage from "@/components/InfoPage.vue";
 
 import { ref } from "vue";
 
