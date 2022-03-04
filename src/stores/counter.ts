@@ -1,13 +1,24 @@
 import { defineStore } from "pinia";
+import { db } from "@/firebase/config"
+// import { global_props } from "@/stores/global_props";
 
-export const useCounterStore = defineStore({
+// const global_props_data = global_props()
+interface Counter {
+  counterName?: string
+  game_id?: string
+  periode?: number
+  counter: number
+}
+
+export const counter_store = defineStore({
   id: "counter",
   state: () => ({
+    counterName: undefined,
+    game_id: undefined,
+    periode: undefined,
     counter: 0,
-  }),
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
+  } as Counter),
+  getters: {},
   actions: {
     increment() {
       this.counter++;
@@ -17,3 +28,16 @@ export const useCounterStore = defineStore({
     },
   },
 });
+
+// global_props_data.$subscribe((e)=>{
+//   console.log("from counter store", e)
+
+
+  
+// })
+
+function init() {
+
+}
+
+init()

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
+import { counter_store } from "@/stores/counter";
 import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config"
-import { initCustomFormatter } from "vue-demi";
 
 interface Game {
   id: string
@@ -56,6 +56,10 @@ async function init() {
     // TODO: catch new_data not well formatted
     console.log("Newly received global_props: ", new_data);
     global_props().$state.current_game = { game_id_display: new_data.game_id_display,  period: new_data.period }
+
+    // inform other stores
+    counter_store().$state.game_id = new_data.game_id_display
+    counter_store().$state.periode = new_data.period
   });
 
   const unsubscribe = onSnapshot(query(collection(db, "games_raw")), (querySnapshot) => {

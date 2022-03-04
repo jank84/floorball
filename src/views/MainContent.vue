@@ -12,6 +12,7 @@
       </template>
       <template #right>
         <va-select
+          :readonly="false"
           style="width: 23em;"
           label="Current game"
           :options="games"
@@ -56,6 +57,9 @@ set_games_select_obj()
 global_props_data.$subscribe((e)=>{
   // WARNING: this selected_game is currently changed by admin ctrls
   set_games_select_obj()
+
+
+  
 })
 
 function set_games_select_obj() {
