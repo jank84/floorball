@@ -54,24 +54,7 @@ const unsub = onSnapshot(doc(db, "global_props", firstDoc.id), (doc) => {
   global_props().$state.current_game = { game_id_display: new_data.game_id_display,  period: new_data.period }
 });
 
-// const games_raw_snapshot = await getDocs(query(collection(db, "games_raw")));
-// console.log("games_raw_snapshot", games_raw_snapshot.docs.map(e=>e.data()))
-// global_props().$state.games_raw = games_raw_snapshot.docs.map(e=>e.data())
-// games_raw_snapshot.forEach((g)=> console.log(g.id + " -> ", g.data()))
-
-// const unsubGames = onSnapshot(doc(db, "games_raw"), (doc) => {
-//   const new_data = doc.data()
-//   // TODO: catch new_data not well formatted
-//   console.log("New received games data: ", new_data);
-//   // global_props().$state.current_game = { game_id_display: new_data.current_game_for_display,  period: new_data.current_game_period }
-// });
-
-
 const unsubscribe = onSnapshot(query(collection(db, "games_raw")), (querySnapshot) => {
-  // querySnapshot.forEach((doc) => {
-  //   console.log("New received games data: ", doc.data());
-  //   // global_props().$state.games_raw.push(doc.data());
-  // });
   console.log("games: ", querySnapshot.docs.map(e=>e.data()));
   global_props().$state.games_raw = querySnapshot.docs.map(e=>e.data()) as Game[]
 });
