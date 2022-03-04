@@ -71,37 +71,49 @@
       </g>
 
       <!--  -->
-      <template v-for="(goal_shot, index) in goal_shot_data_formated">
+      <template v-for="(goal_shot, index) in goal_shots_formated">
         <SvgGoalShot :line="goal_shot.line" :goal_shot_marker="goal_shot.goal_shot_marker" :goal_shot_color="goal_shot.goal_shot_color"/>
       </template>
       </svg>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { use_goal_shot_store } from "@/stores/goal_shots";
-import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
+import { game_store } from "@/stores/game";
+
+import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons, Goal_shot } from "@/utils"
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
 
-const store = use_goal_shot_store()
-const goal_shot_data = store.$state.goal_shot_data
+const game_data = game_store()
+// const store = use_goal_shot_store()
+// const goal_shot_data = store.$state.goal_shot_data
+// const goal_shots = computed(() => game_data.$state.current_display_game.goal_shots)
 
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
 
-const goal_shot_data_formated = goal_shot_data.map(g => {
-  return {
-    line: {
-      start_x: g.team ? gate_pos_right.x : gate_pos_left.x,
-      start_y: g.team ? gate_pos_right.y : gate_pos_left.y,
-      end_x: g.x,
-      end_y: g.y,
-    },
-    goal_shot_marker: goal_icons[Goal_shot_outcome[g.kind]],
-    goal_shot_color: goal_line_colors[Goal_shot_outcome[g.kind]],
+const goal_shots_formated = ref([])
 
-  }
+goal_shots_formated.value = format_goal_shots(game_data.$state.current_display_game.goal_shots || [])
+
+// on data change from firebase
+game_data.$subscribe((e)=>{
+    goal_shots_formated.value = format_goal_shots(game_data.$state.current_display_game.goal_shots || [])
 })
 
 
+function format_goal_shots(goal_shots: Goal_shot[]) {
+    return goal_shots.map(g => {
+        return {
+            line: {
+            start_x: g.team ? gate_pos_right.x : gate_pos_left.x,
+            start_y: g.team ? gate_pos_right.y : gate_pos_left.y,
+            end_x: g.x,
+            end_y: g.y,
+            },
+            goal_shot_marker: goal_icons[Goal_shot_outcome[g.kind]],
+            goal_shot_color: goal_line_colors[Goal_shot_outcome[g.kind]],
+    }})
+}
 </script>

@@ -129,8 +129,11 @@ import { Ref, ref, computed, onMounted } from "vue"
 import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons } from "@/utils"
 import type { Goal_shot } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
+import { game_store } from "@/stores/game";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
 const goal_shot_store = use_goal_shot_store()
+
+const game_data = game_store()
 
 
 // ###### init start ######
@@ -281,16 +284,20 @@ function stopMove(evt) {
   const menue_action = get_menue_action(menue_direction);
 
   const goal_shot: Goal_shot = {
-    game_id: "mock",
-    team: field_side_shot.value,
+    // game_id: undefined,
+    team: field_side_shot.value == 1,
     kind: menue_action,
     x: Math.round(line.value.end_x),
     y: Math.round(line.value.end_y),
     timestamp: new Date()
   }
 
+  // TODO: rm obsolete stores after conversion
   goal_shot_store.$state.last_goal_shot_data = goal_shot
   goal_shot_store.$state.goal_shot_data.push(goal_shot)
+
+  game_data.save_goal_shot(goal_shot)
+
   
   // menu_text.value = "🧡"+JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
   // debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.x},${goal_shot_store.$state.last_goal_shot_data.y}`

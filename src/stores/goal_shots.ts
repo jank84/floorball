@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import type { Goal_shot } from "@/utils"
+import { db } from "@/firebase/config"
+
 
 
 export const use_goal_shot_store = defineStore({

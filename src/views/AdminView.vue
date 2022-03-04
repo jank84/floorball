@@ -142,13 +142,8 @@ set_games_select_obj()
 
 
 
-
-
-
 // on data change from firebase
 global_props_data.$subscribe((e)=>{
-  global_selected_period.value = global_props_data.$state.current_game.period
-  display_selected_period.value = global_props_data.$state.current_display_game.period
   games.value = global_props_data.$state.games_raw
   set_games_select_obj()
 })
@@ -159,7 +154,6 @@ function set_record_period(val) {
 }
 // on click in ui
 function set_record_game(val) {
-  // console.log("global_selected_game.value", global_selected_game.value)
   global_props_data.set_game_id( global_selected_game.value.id)
 }
 // on click in ui 
@@ -168,10 +162,8 @@ function set_display_period(val) {
 }
 // on click in ui
 function set_display_game(val) {
-  // console.log("global_selected_game.value", global_selected_game.value)
   global_props_data.set_display_game_id( display_selected_game.value.id)
 }
-
 
 // TODO: cannot get <va-select> event @input to fire :(( 
   // seems to be a bug in the vuestic-ui framework: https://github.com/epicmaxco/vuestic-ui/issues/1355
@@ -189,17 +181,15 @@ function set_games_select_obj() {
   games_select_obj.value = games.value.map((e, i) => {
     return { text: `${e.team1} - ${e.team2}`, value: i,  id: e.id }
   }) as Select_values[]
+
+  global_selected_period.value = global_props_data.$state.current_game.period
   const find_selected_game = games_select_obj.value.find(g => g.id == global_props_data.$state.current_game.game_id)
   global_selected_game.value = find_selected_game ? find_selected_game : global_selected_game.value
 
+  display_selected_period.value = global_props_data.$state.current_display_game.period
   const find_display_selected_game = games_select_obj.value.find(g => g.id == global_props_data.$state.current_display_game.game_id)
   display_selected_game.value = find_display_selected_game ? find_display_selected_game : display_selected_game.value
-
-
-
-
 }
-  // const display_selected_game: Ref<Select_values> = ref()
 </script>
 
 

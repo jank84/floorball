@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { counter_store } from "@/stores/counter";
 import { game_store } from "@/stores/game";
-import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
+import { updateDoc, query, getDoc, setDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config"
 
 interface Game {
@@ -60,7 +60,12 @@ export const global_props = defineStore({
       // console.log("set_current_game_for_display", this.current_display_game.game_id)
       await setDoc(doc(db, "global_props", firstDoc.id), {
         current_display_game: { game_id: this.current_display_game.game_id}
-      }, { merge: true });      
+      }, { merge: true });
+      
+    //   await updateDoc(doc(db, "global_props", firstDoc.id), {
+    //     "age": 13,
+    //     "favorites.color": "Red"
+    // });
     },
   },
 })
@@ -87,12 +92,8 @@ async function init() {
     counter_store().$state.current_counter.game_id = new_data.current_game.game_id
     counter_store().$state.current_counter.periode = new_data.current_game.period
 
-
-    // counter_store().$state.current_counter.game_id = new_data.current_game.game_id
-    // counter_store().$state.current_counter.periode = new_data.current_game.period
-
-    // game_store().$state.current_counter.game_id = new_data.current_game.game_id
-    game_store().bootstrap(new_data.current_game.game_id)
+    game_store().bootstrap_recording(new_data.current_game.game_id)
+    game_store().bootstrap_display(new_data.current_display_game.game_id)
   });
 
   const unsubscribe = onSnapshot(query(collection(db, "games_raw")), (querySnapshot) => {
@@ -100,7 +101,7 @@ async function init() {
       id: e.id,
       ...e.data()
     }))
-    console.log("Newly received games: ", games_formatted);
+    // console.log("Newly received games: ", games_formatted);
     global_props().$state.games_raw = games_formatted as Game[]
   });
 

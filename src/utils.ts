@@ -34,7 +34,7 @@ export const goal_line_colors = {
 }
 
 export interface Goal_shot {
-  game_id?: string
+  // game_id?: string
   team?: boolean
   kind?: Goal_shot_outcome
   x?: number
