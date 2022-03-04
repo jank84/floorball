@@ -285,6 +285,7 @@ function stopMove(evt) {
   const menue_action = get_menue_action(menue_direction);
 
   const goal_shot: Goal_shot = {
+    game_id: "mock",
     team: field_side_shot.value,
     kind: menue_action,
     x: Math.round(line.value.end_x),

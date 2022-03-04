@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+// import { gameStore } from "@/stores/gameStore";
 import { RouterLink, RouterView } from "vue-router";
 import ReloadPWA from "@/components/ReloadPWA.vue";
 import InfoPage from "@/components/InfoPage.vue";
@@ -48,7 +49,11 @@ const games_mock = [
   "Mock: Game 3 - Team1/Team2",
 ]
 
-const selected_game = ref( "Mock: Game 1 - Team1/Team2")
+const selected_game = ref(games_mock[0])
+
+
+// const gameStoreObj = gameStore()
+// console.log("gameStoreObj", gameStoreObj)
 
 </script>
 

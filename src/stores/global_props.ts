@@ -1,12 +1,11 @@
 import { defineStore } from "pinia";
-import type { Goal_shot } from "@/utils"
 
 
-export const use_goal_shot_store = defineStore({
-  id: "goal_shot",
+export const global_props = defineStore({
+  id: "global_props",
   state: () => ({
+
     last_goal_shot_data: {
-      game_id: undefined,
       team: undefined,
       kind: undefined,
       x: undefined,
@@ -18,3 +17,9 @@ export const use_goal_shot_store = defineStore({
   getters: {},
   actions: {},
 })
+
+
+
+
+current_game_for_display 1
+current_game_period 0 

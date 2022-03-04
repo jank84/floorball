@@ -23,9 +23,9 @@ const store = useCounterStore()
 // const counterVal = computed(() => store.$state.counter)
 
 const counters = [
-  "mock: counter1",
-  "mock: counter2",
+  "mock: Ballbesitz Team A",
+  "mock: Fauls Team A",
 ]
 
-const selected_counter = ref("mock: counter1")
+const selected_counter = ref(counters[0])
 </script>
