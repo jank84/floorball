@@ -5,8 +5,6 @@ import App from "./App.vue";
 import router from "./router";
 import { VuesticPlugin } from "vuestic-ui"; // material ui
 import "vuestic-ui/dist/vuestic-ui.css"; // material ui
-// import 'materialize-css/dist/css/materialize.min.css'
-// import 'material-design-icons/iconfont/material-icons.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.min.css';
 
 const app = createApp(App);
