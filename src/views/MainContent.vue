@@ -14,7 +14,7 @@
         <va-select
           style="width: 23em;"
           label="Current game"
-          :options="games_mock"
+          :options="games"
           v-model="selected_game"
         />
       </template>
@@ -34,8 +34,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue"
 import { global_props } from "@/stores/global_props";
-// import { gameStore } from "@/stores/gameStore";
 import { RouterLink, RouterView } from "vue-router";
 import ReloadPWA from "@/components/ReloadPWA.vue";
 import InfoPage from "@/components/InfoPage.vue";
@@ -48,9 +48,35 @@ const global_props_data = global_props()
 
 
 
-const games = global_props_data.games_raw.map(g => `${g.team1} - ${g.team2}`)
+// const games = global_props_data.games_raw.map(g => `${g.team1} - ${g.team2}`)
+// const games = computed(() => global_props_data.games_raw.map(g => `${g.team1} - ${g.team2}`))
+// const games = computed(() => global_props_data.games_raw.map(((e,i) => ({ label: `${e.team1} - ${e.team2}`, value: i }))))
+const games = computed(() => global_props_data.games_raw.map((e, i) => {
+  return { text: `${e.team1} - ${e.team2}`, value: i,  id: i }
+  }))
 
-const selected_game = ref(games[global_props_data.current_game.game_id_display])
+
+// {
+//         text: 'First',
+//         value: '1',
+//         id: '1',
+//       },
+
+const selected_game = ref({})
+
+
+// on data change from firebase
+global_props_data.$subscribe((e)=>{
+  // WARNING: this selected_game is currently changed by admin ctrls
+  selected_game.value = games.value.find(g => g.id == global_props_data.$state.current_game.game_id_display)
+})
+
+// // on click in ui
+// function change_game_period(val) {
+//   global_props_data.set_period(current_game_period.value)
+// }
+
+
 
 
 // console.log("global_props_data", global_props_data.$state.)

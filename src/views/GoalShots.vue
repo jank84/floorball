@@ -181,8 +181,6 @@ const graphPos = computed(() => {
   };
 })
 
-
-
 function startMove(evt) {
   const touch = evt.type === "touchstart";
   if (!touch && evt.button !== 0) return;

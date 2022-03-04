@@ -73,7 +73,7 @@ const unsubscribe = onSnapshot(query(collection(db, "games_raw")), (querySnapsho
   //   // global_props().$state.games_raw.push(doc.data());
   // });
   console.log("games: ", querySnapshot.docs.map(e=>e.data()));
-  global_props().$state.games_raw = querySnapshot.docs.map(e=>e.data()) as game[]
+  global_props().$state.games_raw = querySnapshot.docs.map(e=>e.data()) as Game[]
 });
 
 
