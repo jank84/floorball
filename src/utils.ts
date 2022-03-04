@@ -24,13 +24,13 @@ export const goal_icons = {
   Scored: "🟢",
   Block_goalkeeper: "🟥",
   Block_player: "⬜",
-  Miss: "🔻"
+  Miss: "❌"
 }
 export const goal_line_colors = {
   Scored: "green",
   Block_goalkeeper: "red",
   Block_player: "grey",
-  Miss: "red"
+  Miss: "lightgrey"
 }
 
 export interface Goal_shot {

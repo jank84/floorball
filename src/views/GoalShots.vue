@@ -2,7 +2,7 @@
     <!-- <div>
       DEBUG TEXT: {{debug_text}}
     </div> -->
-    <svg width="80%" height="100%" viewBox="0 0 737 383" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
+    <svg width="80%" height="100%" viewBox="0 -20 737 403" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
       @mouseup="stopMove"
@@ -102,26 +102,26 @@
 
       <!-- Big corner action symbol -->
       <text
-        style="font-style:normal;font-weight:normal;font-size:42px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:.9;stroke:none;stroke-width:0.264583"
+        style="font-size:22px;font-family:sans-serif;fill:#000000;fill-opacity:1;"
         x=".2em"
-        y="1em"
-        >{{goal_shot_marker}}</text>
+        y=".2em"
+        >{{goal_shot_marker}} {{big_corner_text}}</text>
 
       <!-- menue arrow tip action symbol-->
       <!-- <text
-        style="font-style:normal;font-weight:normal;font-size:42px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:.7;stroke:none;stroke-width:0.264583"
+        style="font-style:normal;font-weight:normal;font-size:42px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
         :x="menu_line.end_x-20"
         :y="menu_line.end_y-40"
         >{{goal_shot_marker}}</text> -->
 
       <!-- menue arrow tip text-->
       <!-- <text
-        style="font-style:normal;font-weight:normal;font-size:12px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+        style="font-size:12px;fill:#000000;fill-opacity:1;"
         :x="menu_line.end_x-20"
         :y="menu_line.end_y-40"
         >{{menu_text}}</text> -->
-      </svg>
 
+      </svg>
 </template>
 
 <script setup lang="ts">
@@ -161,7 +161,7 @@ let menu_text = ref("")
 let debug_text = ref("")
 let goal_shot_marker = ref("")
 let goal_shot_color = ref("grey")
-
+let big_corner_text = ref("")
 
 const graphSize = ref(100);
 
@@ -180,6 +180,8 @@ const graphPos = computed(() => {
     width: size,
   };
 })
+
+
 
 function startMove(evt) {
   const touch = evt.type === "touchstart";
@@ -240,6 +242,24 @@ function startMove(evt) {
     goal_shot_marker.value = goal_icons[Goal_shot_outcome[menue_action]]
     goal_shot_color.value = goal_line_colors[Goal_shot_outcome[menue_action]]
 
+    switch (Goal_shot_outcome[menue_action]) {
+      case Goal_shot_outcome[Goal_shot_outcome.Scored]:
+        big_corner_text.value = "Torschuss Erfolg"
+        break;
+      case Goal_shot_outcome[Goal_shot_outcome.Block_goalkeeper]:
+        big_corner_text.value = "Block Torhüter"
+        break;
+      case Goal_shot_outcome[Goal_shot_outcome.Block_player]:
+        big_corner_text.value = "Block Spieler"
+        break;
+      case Goal_shot_outcome[Goal_shot_outcome.Miss]:
+        big_corner_text.value = "Tor verfehlt"
+        break;
+      default:
+        console.error("Unbekanntes Goal_shot_outcome")
+        break;
+    }
+
   };
   const moveFn = (evt) => getPos(evt, point);
   const stopFn = () => {
@@ -272,7 +292,8 @@ function stopMove(evt) {
   goal_shot_store.$state.goal_shot_data.push(goal_shot)
   
   // menu_text.value = "🧡"+JSON.stringify(goal_shot_store.$state.last_goal_shot_data, null, 2)
-  // debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.start_x},${goal_shot_store.$state.last_goal_shot_data.start_y}`
+  // debug_text.value = `${goal_shot_store.$state.last_goal_shot_data.x},${goal_shot_store.$state.last_goal_shot_data.y}`
+
   goal_shot_marker.value = goal_icons[Goal_shot_outcome[menue_action]]
   goal_shot_color.value = goal_line_colors[Goal_shot_outcome[menue_action]]
 

@@ -6,10 +6,11 @@
         <va-navbar-item><va-button icon="info" @click="showModal = !showModal" color="#fff" flat :rounded="false" /></va-navbar-item>
         <va-button icon="add" to="counter-test" color="#fff" flat :rounded="false">Counter test</va-button>
         <va-button icon="fingerprint" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
-      </template>
-      <template #right>
         <router-link to="goalsview">Open goalsview</router-link>
       </template>
+      <!-- <template #center>
+        <router-link to="goalsview">Open goalsview</router-link>
+      </template> -->
     </va-navbar>
   </header>
   <RouterView />
