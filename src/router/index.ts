@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainContent from "@/views/MainContent.vue";
-import Counter from "@/views/Counter.vue";
+import MultiCounterView from "@/views/MultiCounterView.vue";
 import GoalShots from "@/views/GoalShots.vue";
 import FooView from "@/views/FooView.vue";
 import GoalsView from "@/views/GoalsView.vue";
@@ -15,9 +15,9 @@ const router = createRouter({
       component: MainContent,
       children: [
         {
-          path: "/counter",
-          name: "counter",
-          component: Counter,
+          path: "/multi-counterview",
+          name: "multi-counterview",
+          component: MultiCounterView,
         },
         {
           path: "/goal-shots",
@@ -33,9 +33,9 @@ const router = createRouter({
     },
     // ⬇ without nav ⬇
     {
-      path: "/blank/counter",
-      name: "blank-counter",
-      component: Counter,
+      path: "/blank/multi-counterview",
+      name: "blank-multi-counterview",
+      component: MultiCounterView,
     },
     {
       path: "/blank/goal-shots",

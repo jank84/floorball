@@ -4,7 +4,7 @@
     <va-navbar color="primary" shape class="mb-2">
       <template #left>
         <va-navbar-item><va-button icon="info" @click="showModal = !showModal" color="#fff" flat :rounded="false" /></va-navbar-item>
-        <va-button icon="exposure_plus_1" to="counter" color="#fff" flat :rounded="false">Counter</va-button>
+        <va-button icon="exposure_plus_1" to="multi-counterview" color="#fff" flat :rounded="false">Counter</va-button>
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
         <va-button icon="open_in_new" to="goalsview" color="#fff" flat :rounded="false">Open goalsview</va-button>
         <!-- global_props: {{global_props_data}} -->
@@ -70,6 +70,7 @@ function set_games_select_obj() {
 
 <style>
 @import "@/assets/base.css";
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap');
 </style>
 
 
