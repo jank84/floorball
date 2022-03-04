@@ -89,8 +89,8 @@ async function init() {
     
 
     // inform other stores
-    counter_store().$state.current_counter.game_id = new_data.current_game.game_id
-    counter_store().$state.current_counter.periode = new_data.current_game.period
+    // counter_store().$state.current_counter.game_id = new_data.current_game.game_id
+    // counter_store().$state.current_counter.periode = new_data.current_game.period
 
     game_store().bootstrap_recording(new_data.current_game.game_id)
     game_store().bootstrap_display(new_data.current_display_game.game_id)

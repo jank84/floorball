@@ -74,8 +74,8 @@
           <va-button-toggle
             outline
             color="warning"
-            v-model=" display_selected_period"
-            :options="game_period_select_obj"
+            v-model="display_selected_period"
+            :options="game_period_display_select_obj"
             @click="set_display_period"
           />
         </div>
@@ -120,11 +120,17 @@ interface Select_values {
   id: string
 }
 
+interface Button_toggle {
+  label: string
+  value: number
+}
+
 const global_props_data = global_props()
 
 // Data period list 
 const game_period = [0,1,2]
-const game_period_select_obj = game_period.map((e => ({ label: e, value: e })))
+const game_period_select_obj: Button_toggle[] = game_period.map((e => ({ label: ""+e, value: e })))
+const game_period_display_select_obj: Button_toggle[] = game_period.map((e => ({ label: ""+e, value: e }))).concat({ label: "all", value: 3 })
 
 // Data games list 
 const games = ref(global_props_data.$state.games_raw)
