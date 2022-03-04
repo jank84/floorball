@@ -1,6 +1,4 @@
 <template>
-
-  <!-- <va-card style="padding: 0.75rem;"> -->
     <div class="row">
       <div class="flex md12">
         <div class="item">
@@ -39,7 +37,6 @@
         <div class="item">md3</div>
       </div>
     </div>
-  <!-- </va-card> -->
 </template>
 
 <script setup lang="ts">
@@ -53,20 +50,15 @@ const game_period_obj = game_period.map((e => ({ label: e, value: e })))
 
 // const current_game_period = computed(() => global_props_data.$state.current_game_period)
 const current_game_period = ref(global_props_data.$state.current_game.period)
-// const current_game_period = ref(game_period[0])
-// const current_game_period = ref(game_period[0])
 
+// on data change from firebase
 global_props_data.$subscribe((e)=>{
-  // console.log("$subscribe", e)
-  // console.log("$subscribe::global_props_data.$state.current_game_period", global_props_data.$state.current_game_period)
   current_game_period.value = global_props_data.$state.current_game.period
 })
 
+// on click in ui
 function change_game_period(val) {
-  // console.log("change_game_period:", val)
-  // console.log("current_game_period.value:", current_game_period.value)
-  // global_props_data.$state.current_game_period = current_game_period.value
-  global_props_data.set_current_game_period(current_game_period.value)
+  global_props_data.set_period(current_game_period.value)
 }
 
 </script>
