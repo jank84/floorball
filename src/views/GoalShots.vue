@@ -244,16 +244,20 @@ function startMove(evt) {
 
     switch (Goal_shot_outcome[menue_action]) {
       case Goal_shot_outcome[Goal_shot_outcome.Scored]:
-        big_corner_text.value = "Torschuss Erfolg"
+        // big_corner_text.value = "Torschuss Erfolg"
+        big_corner_text.value = "goal successfull"
         break;
       case Goal_shot_outcome[Goal_shot_outcome.Block_goalkeeper]:
-        big_corner_text.value = "Block Torhüter"
+        // big_corner_text.value = "Block Torhüter"
+        big_corner_text.value = "Block goal keeper"
         break;
       case Goal_shot_outcome[Goal_shot_outcome.Block_player]:
-        big_corner_text.value = "Block Spieler"
+        // big_corner_text.value = "Block Spieler"
+        big_corner_text.value = "Block player"
         break;
       case Goal_shot_outcome[Goal_shot_outcome.Miss]:
-        big_corner_text.value = "Tor verfehlt"
+        // big_corner_text.value = "Tor verfehlt"
+        big_corner_text.value = "goal missed"
         break;
       default:
         console.error("Unbekanntes Goal_shot_outcome")
