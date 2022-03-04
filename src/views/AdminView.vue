@@ -52,14 +52,14 @@ const game_period = [0,1,2]
 const game_period_obj = game_period.map((e => ({ label: e, value: e })))
 
 // const current_game_period = computed(() => global_props_data.$state.current_game_period)
-const current_game_period = ref(global_props_data.$state.current_game_period)
+const current_game_period = ref(global_props_data.$state.current_game.period)
 // const current_game_period = ref(game_period[0])
 // const current_game_period = ref(game_period[0])
 
 global_props_data.$subscribe((e)=>{
   // console.log("$subscribe", e)
   // console.log("$subscribe::global_props_data.$state.current_game_period", global_props_data.$state.current_game_period)
-  current_game_period.value = global_props_data.$state.current_game_period
+  current_game_period.value = global_props_data.$state.current_game.period
 })
 
 function change_game_period(val) {
