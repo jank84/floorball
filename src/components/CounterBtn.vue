@@ -1,22 +1,13 @@
 <template>
-  <div class="block">
-    <va-icon
-      name="add"
-      size="large"
-      :rotation="0"
-      class="mr-3"
-    />
-  </div>
+    <va-button class="block" :rounded="false">
+      <va-icon size="10rem" name="add" />
+    </va-button>
 </template>
 
 <style scoped>
 .block {
-  width:60%;
-  border-radius: 1em;
-  background: teal;
-  /* color: black; */
-  text-align: center;
-  padding: 8em 0;
-  margin: 2em auto;
+  width:60% !important;
+  padding: 4em 0;
+  margin: 1em 22%;
 }
 </style>
