@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { query, getDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
+import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config"
 
 const global_props_snapshot = await getDocs(query(collection(db, "global_props")));
@@ -23,7 +23,22 @@ export const global_props = defineStore({
     current_game_period: firstDoc.data().current_game_period
   }),
   getters: {},
-  actions: {},
+  actions: {
+    async set_current_game_period(val: number) {
+      this.current_game_period = val
+
+      console.log("set_current_game_period", this.current_game_period)
+      
+      await setDoc(doc(db, "global_props", firstDoc.id), {
+        current_game_period: this.current_game_period,
+      }, { merge: true });
+      
+      console.log("set doc"!)
+      // collection(db, "global_props").
+
+      // db.collection("users").doc(doc.id).update({foo: "bar"});
+    },
+  },
 })
 
 

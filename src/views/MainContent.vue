@@ -7,7 +7,7 @@
         <va-button icon="exposure_plus_1" to="counter" color="#fff" flat :rounded="false">Counter</va-button>
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
         <va-button icon="open_in_new" to="goalsview" color="#fff" flat :rounded="false">Open goalsview</va-button>
-        global_props: {{global_props_data.current_game_for_display}}
+        global_props: {{global_props_data}}
         <va-button icon="admin_panel_settings" to="admin-view" color="#fff" flat :rounded="false">Admin</va-button>
       </template>
       <template #right>
