@@ -4,7 +4,7 @@ import { db } from "@/firebase/config"
 
 // const global_props_data = global_props()
 interface Counter {
-  counterName?: string
+  counter_name?: string
   game_id?: string
   periode?: number
   counter: number
@@ -13,11 +13,13 @@ interface Counter {
 export const counter_store = defineStore({
   id: "counter",
   state: () => ({
-    counterName: undefined,
-    game_id: undefined,
-    periode: undefined,
-    counter: 0,
-  } as Counter),
+    current_counter: {
+      counter_name: undefined,
+      game_id: undefined,
+      periode: undefined,
+      counter: 0,
+    } as Counter,
+  }),
   getters: {},
   actions: {
     increment() {
@@ -28,16 +30,3 @@ export const counter_store = defineStore({
     },
   },
 });
-
-// global_props_data.$subscribe((e)=>{
-//   console.log("from counter store", e)
-
-
-  
-// })
-
-function init() {
-
-}
-
-init()
