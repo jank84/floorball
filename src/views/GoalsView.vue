@@ -81,11 +81,13 @@
 import { ref, computed } from "vue"
 import { use_goal_shot_store } from "@/stores/goal_shots";
 import { game_store } from "@/stores/game";
+import { global_props } from "@/stores/global_props";
 
 import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons, Goal_shot } from "@/utils"
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
 
 const game_data = game_store()
+const global_props_data = global_props()
 // const store = use_goal_shot_store()
 // const goal_shot_data = store.$state.goal_shot_data
 // const goal_shots = computed(() => game_data.$state.current_display_game.goal_shots)
@@ -104,7 +106,15 @@ game_data.$subscribe((e)=>{
 
 
 function format_goal_shots(goal_shots: Goal_shot[]) {
-    return goal_shots.map(g => {
+
+    let goal_shots_filtered = goal_shots;
+    // if period is not 3 == "all", filter after period
+    const current_display_period = global_props_data.$state.current_display_game.period
+    if ( current_display_period != 3) {
+        goal_shots_filtered = goal_shots.filter(g => g.period == current_display_period)
+    } 
+
+    return goal_shots_filtered.map(g => {
         return {
             line: {
             start_x: g.team ? gate_pos_right.x : gate_pos_left.x,

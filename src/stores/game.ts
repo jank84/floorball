@@ -35,7 +35,7 @@ export const game_store = defineStore({
         const game_id_from_store = global_props().current_game.game_id as string
 
         if (game_id_from_store != doc.id) {
-          // wrong subs; remove
+          // wrong, outdated subscription; remove
           unsub_bootstrap_recording()
           return
         }
@@ -51,7 +51,7 @@ export const game_store = defineStore({
         const game_id_from_store = global_props().current_display_game.game_id as string
 
         if (game_id_from_store != doc.id) {
-          // wrong subs; remove
+          // wrong, outdated subscription; remove
           unsub_bootstrap_display()
           return
         }

@@ -131,10 +131,9 @@ import type { Goal_shot } from "@/utils"
 import { use_goal_shot_store } from "@/stores/goal_shots";
 import { game_store } from "@/stores/game";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
+
 const goal_shot_store = use_goal_shot_store()
-
 const game_data = game_store()
-
 
 // ###### init start ######
 
