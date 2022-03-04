@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import MainContent from "../views/MainContent.vue";
-import CounterTest from "../views/CounterTest.vue";
+import Counter from "../views/Counter.vue";
 import GoalShots from "../views/GoalShots.vue";
 import FooView from "../views/FooView.vue";
 import GoalsView from "../views/GoalsView.vue";
@@ -15,9 +15,9 @@ const router = createRouter({
       component: MainContent,
       children: [
         {
-          path: "/counter-test",
-          name: "counter-test",
-          component: CounterTest,
+          path: "/counter",
+          name: "counter",
+          component: Counter,
         },
         {
           path: "/home",
@@ -33,9 +33,9 @@ const router = createRouter({
     },
     // ⬇ without nav ⬇
     {
-      path: "/blank/counter-test",
-      name: "blank-counter-test",
-      component: CounterTest,
+      path: "/blank/counter",
+      name: "blank-counter",
+      component: Counter,
     },
     {
       path: "/blank/home",
