@@ -289,7 +289,7 @@ function stopMove(evt) {
     team: field_side_shot.value,
     kind: menue_action,
     x: Math.round(line.value.end_x),
-    y:  Math.round(line.value.end_y),
+    y: Math.round(line.value.end_y),
     timestamp: new Date()
   }
 

@@ -7,7 +7,7 @@
         <va-button icon="exposure_plus_1" to="counter" color="#fff" flat :rounded="false">Counter</va-button>
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
         <va-button icon="open_in_new" to="goalsview" color="#fff" flat :rounded="false">Open goalsview</va-button>
-
+        global_props: {{global_props_data.current_game_for_display}}
       </template>
       <template #right>
         <!-- <router-link to="goalsview">Open goalsview</router-link> -->
@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import { global_props } from "@/stores/global_props";
 // import { gameStore } from "@/stores/gameStore";
 import { RouterLink, RouterView } from "vue-router";
 import ReloadPWA from "@/components/ReloadPWA.vue";
@@ -52,8 +53,8 @@ const games_mock = [
 const selected_game = ref(games_mock[0])
 
 
-// const gameStoreObj = gameStore()
-// console.log("gameStoreObj", gameStoreObj)
+const global_props_data = global_props()
+// console.log("global_props_data", global_props_data.$state.)
 
 </script>
 

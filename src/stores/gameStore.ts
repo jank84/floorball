@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { doc, getDoc } from "@firebase/firestore"; 
 import { db } from "../firebase/config"
-// import { getCollection, saveToDoc} from "@/composables/gameCollection";
+import { getCollection, saveToDoc} from "@/composables/gameCollection";
 
 
 const gamesCollectionId = 'games'
