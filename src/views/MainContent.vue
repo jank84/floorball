@@ -8,9 +8,9 @@
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
         <va-button icon="open_in_new" to="goalsview" color="#fff" flat :rounded="false">Open goalsview</va-button>
         global_props: {{global_props_data.current_game_for_display}}
+        <va-button icon="admin_panel_settings" to="admin-view" color="#fff" flat :rounded="false">Admin</va-button>
       </template>
       <template #right>
-        <!-- <router-link to="goalsview">Open goalsview</router-link> -->
         <va-select
           style="width: 23em;"
           label="Current game"

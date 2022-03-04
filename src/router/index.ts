@@ -4,6 +4,7 @@ import Counter from "@/views/Counter.vue";
 import GoalShots from "@/views/GoalShots.vue";
 import FooView from "@/views/FooView.vue";
 import GoalsView from "@/views/GoalsView.vue";
+import AdminView from "@/views/AdminView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
           path: "/goal-shots",
           name: "goal-shots",
           component:GoalShots,
+        },
+        {
+          path: "/admin-view",
+          name: "admin-view",
+          component:AdminView,
         },
       ]
     },
