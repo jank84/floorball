@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
+import { query, getDoc, setDoc, getDocs, collection, doc, onSnapshot, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "@/firebase/config"
 import type { Goal_shot } from "@/utils";
 import { global_props } from "./global_props";
@@ -20,10 +20,10 @@ interface Game_status {
   goal_shots: Goal_shot[]
 }
 
-// TODO: legende
+// TODO: legende v
 // TODO: current game select -> text v
-// TODO: team namen über goals view. attacker in over enemy half + periode
-// TOD0: miss passes
+// TODO: team namen über goals view. attacker in over enemy half + periode v
+// TOD0: miss passes v
 // undo goals
 // TODO: counter view
 // TODO: change of possesion
@@ -125,7 +125,18 @@ export const game_store = defineStore({
       await updateDoc(doc(db, "games_raw", current_recording_game.game_id as string ), {
         goal_shots: arrayUnion(goal_shot)
       }); 
-    }
+    },
+    async undo_goal_shot() {
+      const current_recording_game = global_props().$state.current_game
+      console.log("current_recording_game", current_recording_game)
+      // goal_shot.period = current_recording_game.period
+      const last_elem = this.current_game.goal_shots.pop()
+      await updateDoc(doc(db, "games_raw", current_recording_game.game_id as string ), {
+        goal_shots: arrayRemove(last_elem)
+      });
+
+
+    },
   },
 });
 

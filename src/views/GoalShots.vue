@@ -104,8 +104,15 @@
       <text
         style="font-size:22px;font-family:sans-serif;fill:#000000;fill-opacity:1;"
         x=".2em"
-        y=".2em"
+        y=".8em"
         >{{goal_shot_marker}} {{big_corner_text}}</text>
+      <!-- <text
+        style="font-size:22px;font-family:sans-serif;fill:#000000;fill-opacity:1;"
+        x=".2em"
+        y=".2em"
+        >{{goal_shot_marker}} {{big_corner_text}}</text> -->
+
+
 
       <!-- menue arrow tip action symbol-->
       <!-- <text
@@ -121,10 +128,11 @@
         :y="menu_line.end_y-40"
         >{{menu_text}}</text> -->
 
-        <svgText x="5em" y="0em" :text="game_data.$state.current_game.team1"/>
+        <svgText x="8em" y="0em" :text="game_data.$state.current_game.team1"/>
         <svgText x="18em" y="0em" :text="game_data.$state.current_game.team2"/>
       </svg>
       <GoalShotLegend style="margin: 0em 3.2em;"/>
+      <va-button @click="undo" color="danger" style="position: absolute;top: 8em;right: 1em;" icon="undo" :rounded="false">Undo</va-button>
 </template>
 
 <script setup lang="ts">
@@ -375,6 +383,9 @@ function get_menue_action(menue_direction: Direction): Goal_shot_outcome {
   }
 }
 
+function undo() {
+  game_data.undo_goal_shot()
+}
 </script>
 
 <style>
