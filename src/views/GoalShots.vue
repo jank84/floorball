@@ -2,7 +2,7 @@
     <!-- <div>
       DEBUG TEXT: {{debug_text}}
     </div> -->
-    <svg width="80%" height="100%" viewBox="0 -20 737 403" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
+    <svg width="80%" height="100%" viewBox="0 -20 727 403" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;"
       @mousedown="startMove"
       @touchstart.prevent="startMove"
       @mouseup="stopMove"
@@ -121,7 +121,10 @@
         :y="menu_line.end_y-40"
         >{{menu_text}}</text> -->
 
+        <svgText x="5em" y="0em" :text="game_data.$state.current_game.team1"/>
+        <svgText x="18em" y="0em" :text="game_data.$state.current_game.team2"/>
       </svg>
+      <GoalShotLegend style="margin: 0em 3.2em;"/>
 </template>
 
 <script setup lang="ts">
@@ -130,8 +133,14 @@ import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, 
 import type { Goal_shot } from "@/utils"
 import { game_store } from "@/stores/game";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
+import GoalShotLegend from "@/components/GoalShotLegend.vue";
+import SvgText from "@/components/SvgText.vue";
+// import SvgLegende from "@/components/SvgLegende.vue";
+
 
 const game_data = game_store()
+
+
 
 // ###### init start ######
 

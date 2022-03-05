@@ -70,11 +70,16 @@
           <path d="M0,0L597.939,0" style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:0.5px;"/>
       </g>
 
-      <!--  -->
       <template v-for="(goal_shot, index) in goal_shots_formated">
         <SvgGoalShot :line="goal_shot.line" :goal_shot_marker="goal_shot.goal_shot_marker" :goal_shot_color="goal_shot.goal_shot_color"/>
       </template>
+      <svgText x="-1em" y="0em" :text="`Period: ${global_props_data.$state.current_display_game.period}`"/>
+      
+      <svgText x="6em" y="0em" :text="game_data.$state.current_display_game.team1"/>
+      <svgText x="20em" y="0em" :text="game_data.$state.current_display_game.team2"/>
+
       </svg>
+    <GoalShotLegend style="font-size: x-large;margin: 0em 5em;"/>
 </template>
 
 <script setup lang="ts">
@@ -84,9 +89,13 @@ import { global_props } from "@/stores/global_props";
 
 import { goal_line_colors, Field_side_shot, Line, Direction, Goal_shot_outcome, goal_icons, Goal_shot } from "@/utils"
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
+import SvgText from "@/components/SvgText.vue";
+import GoalShotLegend from "@/components/GoalShotLegend.vue";
 
 const game_data = game_store()
 const global_props_data = global_props()
+
+
 
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
