@@ -5,6 +5,7 @@ import GoalShots from "@/views/GoalShots.vue";
 import FooView from "@/views/FooView.vue";
 import GoalsView from "@/views/GoalsView.vue";
 import AdminView from "@/views/AdminView.vue";
+import CounterDisplayView from "@/views/CounterDisplayView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       path: "/blank/multi-counterview",
       name: "blank-multi-counterview",
       component: MultiCounterView,
+    },
+    {
+      path: "/counter-display-view",
+      name: "counter-display-view",
+      component: CounterDisplayView,
     },
     {
       path: "/blank/goal-shots",

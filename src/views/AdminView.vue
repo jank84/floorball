@@ -11,7 +11,7 @@
     <div class="row">
       <div class="flex md2">
         <div class="item">
-            <h2 >Current record period</h2>
+            <h6 class="display-6" >Current record period</h6>
             For global set current game period:
             Select Game period for counter and goal shots
         </div>
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="flex md2">
         <div class="item">
-            <h2 >Current record game</h2>
+            <h6 class="display-6" >Current record game</h6>
             For <b>global</b> set current game:
             Select Game for <b>⚠ RECORDING</b>. <b>For now it also sets the curent game in nav bar selection in ⚠ ALL clients.</b> 
         </div>
@@ -56,15 +56,10 @@
       </div>
     </div>
 
-
-
-
-
-
     <div class="row">
       <div class="flex md2">
         <div class="item">
-            <h2 >Current display period</h2>
+            <h6 class="display-6" >Current display period</h6>
             For global set current <b>display</b> game period:
             Select Game period for counter and goal shots
         </div>
@@ -84,7 +79,7 @@
     <div class="row">
       <div class="flex md2">
         <div class="item">
-            <h2 >Current display game</h2>
+            <h6 class="display-6" >Current display game</h6>
             For <b>global</b> set current game:
             Select Game for display. <b>For now it also sets the curent game in nav bar selection in ⚠ ALL clients.</b> 
         </div>
@@ -105,6 +100,20 @@
       <div class="flex md4">
         <div class="item">
           <va-button color="warning" icon="save" @click="set_display_game" outline :rounded="false">Save game global</va-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="flex md2">
+        <div class="item">
+            <h6 class="display-6">Links</h6>
+        </div>
+      </div>
+      <div class="flex md12">
+        <div class="item">
+          <va-button icon="open_in_new" to="goalsview" flat :rounded="false">Open goalsview</va-button>
+          <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter</va-button>
         </div>
       </div>
     </div>
