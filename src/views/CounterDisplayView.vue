@@ -13,34 +13,13 @@
       </thead>
       <tbody>
         <tr v-for="(counter_in_periode, index) in counters_passing_formated" :key="index">
-          <td>{{counter_in_periode.period}}</td>
+          <td>{{(counter_in_periode.period+1)}}</td>
           <td>{{counter_in_periode.counters_passing_team1}}</td>
           <td>{{counter_in_periode.counters_passing_team2}}</td>
           <td>{{counter_in_periode.counters_passing_miss_team1}}</td>
           <td>{{counter_in_periode.counters_passing_miss_team2}}</td>
           <td>{{counter_in_periode.ratio_team1}}</td>
           <td>{{counter_in_periode.ratio_team2}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="va-table">
-      <thead>
-      <tr>
-        <th>period</th>
-        <th>team</th>
-        <th>passing</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(counter_in_periode, index) in counters_passing[0].counters" :key="index">
-          <td>{{index}}</td>
-          <td>{{counters_passing[0].team}}</td>
-          <td>{{counter_in_periode}}</td>
-        </tr>
-        <tr v-for="(counter_in_periode, index) in counters_passing[1].counters" :key="index">
-          <td>{{index}}</td>
-          <td>{{counters_passing[1].team}}</td>
-          <td>{{counter_in_periode}}</td>
         </tr>
       </tbody>
     </table>

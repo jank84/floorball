@@ -6,7 +6,7 @@
         <va-navbar-item><va-button icon="info" @click="showModal = !showModal" color="#fff" flat :rounded="false" /></va-navbar-item>
         <va-button icon="exposure_plus_1" to="multi-counterview" color="#fff" flat :rounded="false">Counter</va-button>
         <va-button icon="swipe" to="goal-shots" color="#fff" flat :rounded="false">Goal shots</va-button>
-       
+
           <va-button-dropdown outline color="#fff">
             <va-button icon="open_in_new" to="goalsview" flat :rounded="false">Open goalsview</va-button>
             <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter</va-button>
@@ -21,7 +21,7 @@
           :options="games"
           v-model="selected_game"
         /> -->
-        <h6 style="color: white" class="display-6">Game: {{selected_game.text}} period: {{global_props_data.$state.current_game.period}}</h6>
+        <h6 style="color: white" class="display-6">Game: {{selected_game.text}} period: {{(global_props_data.$state.current_game.period+1)}}</h6>
       </template>
     </va-navbar>
   </header>

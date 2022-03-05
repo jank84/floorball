@@ -73,7 +73,7 @@
         <template v-for="(goal_shot, index) in goal_shots_formated" :key="index">
             <SvgGoalShot :line="goal_shot.line" :goal_shot_marker="goal_shot.goal_shot_marker" :goal_shot_color="goal_shot.goal_shot_color"/>
         </template>
-        <svgText x="-1em" y="0em" :text="`Period: ${global_props_data.$state.current_display_game.period}`"/>
+        <svgText x="-1em" y="0em" :text="`Period: ${(global_props_data.$state.current_display_game.period+1)}`"/>
         
         <svgText x="4em" y="0em" :text="game_data.$state.current_display_game.team1"/>
         <svgText x="19em" y="0em" :text="game_data.$state.current_display_game.team2"/>
