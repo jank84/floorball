@@ -24,10 +24,16 @@ interface Game_status {
 // TODO: current game select -> text v
 // TODO: team namen über goals view. attacker in over enemy half + periode v
 // TOD0: miss passes v
-// undo goals v 
+// TODO: undo goals v 
 // TODO: counter view v
 // TODO: change of possesion x
 // TODO: add urls to admin v
+
+  // TODO: counter as text in goal shots view
+  // TODO: stats view # passes, see cony current display periodd + total
+  // TODO: change of posessions
+
+
 
 export const game_store = defineStore({
   id: "game",

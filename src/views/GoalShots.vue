@@ -128,11 +128,12 @@
         :y="menu_line.end_y-40"
         >{{menu_text}}</text> -->
 
-        <svgText x="8em" y="0em" :text="game_data.$state.current_game.team1"/>
+        <svgText x="2em" y="0em" :text="game_data.$state.current_game.team1"/>
         <svgText x="18em" y="0em" :text="game_data.$state.current_game.team2"/>
       </svg>
       <GoalShotLegend style="margin: 0em 3.2em;"/>
       <va-button @click="undo" color="danger" style="position: absolute;top: 8em;right: 1em;" icon="undo" :rounded="false">Undo</va-button>
+      <h6 class="display-6" style="position: absolute;top: 9em;right: 1em;">{{game_data.$state.current_game.goal_shots.length}}</h6>
 </template>
 
 <script setup lang="ts">
@@ -143,8 +144,6 @@ import { game_store } from "@/stores/game";
 import SvgGoalShot from "@/components/SvgGoalShot.vue";
 import GoalShotLegend from "@/components/GoalShotLegend.vue";
 import SvgText from "@/components/SvgText.vue";
-// import SvgLegende from "@/components/SvgLegende.vue";
-
 
 const game_data = game_store()
 
