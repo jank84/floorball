@@ -144,3 +144,24 @@ ServeWorker are disabled in development servers.
 Service worker need to be served over HTTPS. Exception is localhost.
 
 Only works with localhost: `npm run preview` but not when exposed to all network interfaces with `npm run preview -- --host`.
+
+# deployment
+add `src\firebase\config.ts from`
+
+- prod: https://console.firebase.google.com/u/0/project/floorballstatsde/settings/general/web:ZTkxNjliZjItYjY1OS00ZDYwLWI3OTAtZTgxYjEyZDI2NDk4
+- stage: https://console.firebase.google.com/u/0/project/staging-floorballstatede/settings/general/web:YzkwOTdjZDQtODhlMi00N2M1LWJhNzItYzEwNTY2NTNhNWMw
+
+
+
+install firebase cli & `firebase init`
+
+
+## list avaiable projects
+```bash
+firebase projects:list
+```
+
+```bash
+# build project
+npm run build && firebase deploy --only hosting
+```

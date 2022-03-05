@@ -47,12 +47,12 @@ const router = createRouter({
     {
       path: "/counter-display-view",
       name: "counter-display-view",
-      component: CounterDisplayView,
+      component: CounterDisplayView2,
     },
     {
-      path: "/counter-display-view2",
-      name: "counter-display-view2",
-      component: CounterDisplayView2,
+      path: "/counter-display-view-old",
+      name: "counter-display-view-old",
+      component: CounterDisplayView,
     },
     {
       path: "/blank/goal-shots",
