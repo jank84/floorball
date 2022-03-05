@@ -114,7 +114,7 @@
         <div class="item">
           <va-button icon="open_in_new" to="goalsview" flat :rounded="false">Open goalsview blank</va-button>
           <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter display blank</va-button>
-          <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter display 2 blank</va-button>
+          <va-button icon="open_in_new" to="counter-display-view2" flat :rounded="false">Open counter display 2 blank</va-button>
           <va-button icon="open_in_new" to="/blank/multi-counterview" flat :rounded="false">Open multi counter view blank</va-button>
           <va-button icon="open_in_new" to="/blank/goal-shots" flat :rounded="false">Open goal shots blank</va-button>
         </div>
