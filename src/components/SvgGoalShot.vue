@@ -1,7 +1,7 @@
 <template>
     <!-- dotted red line to gate -->
     <path
-      :style="`stroke:${goal_shot_color};stroke-width:.2em;stroke-linecap:butt;stroke-opacity:0.4;stroke-miterlimit:4;stroke-dasharray:5,2;`"
+      :style="`stroke:${goal_shot_color};stroke-width:.2em;stroke-linecap:butt;stroke-opacity:0.1;stroke-miterlimit:4;stroke-dasharray:5,2;`"
       :d="`M ${line.start_x}, ${line.start_y} ${line.end_x}, ${line.end_y}`"
       id="gate_line" />
 
