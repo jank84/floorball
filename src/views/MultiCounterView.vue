@@ -23,17 +23,39 @@
     <div class="flex md3 xs6">
       <div class="item">
         <div style="background-color: rgb(145 255 166);">  
-          <h1>bullies - Team: {{game_data.$state.current_game.team1}}</h1>
-          <CounterBtn @click="game_data.increment_counter('bullies', game_data.$state.current_game.team1)"/>
-          <CounterBtn2 @click="game_data.decrement_counter('bullies', game_data.$state.current_game.team1)"/>
-          <!-- <CounterDisplay :counter="store.current_counter.counter" />  -->
-          <CounterDisplay :counter="game_data.get_recording_counter('bullies', game_data.$state.current_game.team1)" /> 
+          <h1>passing misses - Team: {{game_data.$state.current_game.team1}}</h1>
+          <CounterBtn @click="game_data.increment_counter('passing misses', game_data.$state.current_game.team1)"/>
+          <CounterBtn2 @click="game_data.decrement_counter('passing misses', game_data.$state.current_game.team1)"/>
+          <CounterDisplay :counter="game_data.get_recording_counter('passing misses', game_data.$state.current_game.team1)" /> 
         </div>
       </div>
     </div>
     <div class="flex md3 xs6">
       <div class="item">
         <div style="background-color: rgb(145 255 166);"> 
+          <h1>passing misses - Team: {{game_data.$state.current_game.team2}}</h1> 
+          <CounterBtn @click="game_data.increment_counter('passing misses', game_data.$state.current_game.team2)"/>
+          <CounterBtn2 @click="game_data.decrement_counter('passing misses', game_data.$state.current_game.team2)"/>
+          <CounterDisplay :counter="game_data.get_recording_counter('passing misses', game_data.$state.current_game.team2)" /> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="flex md3 xs6">
+      <div class="item">
+        <div style="background-color: rgb(230 255 145);">  
+          <h1>bullies - Team: {{game_data.$state.current_game.team1}}</h1>
+          <CounterBtn @click="game_data.increment_counter('bullies', game_data.$state.current_game.team1)"/>
+          <CounterBtn2 @click="game_data.decrement_counter('bullies', game_data.$state.current_game.team1)"/>
+          <CounterDisplay :counter="game_data.get_recording_counter('bullies', game_data.$state.current_game.team1)" /> 
+        </div>
+      </div>
+    </div>
+    <div class="flex md3 xs6">
+      <div class="item">
+        <div style="background-color: rgb(230 255 145);"> 
           <h1>bullies - Team: {{game_data.$state.current_game.team2}}</h1> 
           <CounterBtn @click="game_data.increment_counter('bullies', game_data.$state.current_game.team2)"/>
           <CounterBtn2 @click="game_data.decrement_counter('bullies', game_data.$state.current_game.team2)"/>
@@ -42,19 +64,18 @@
       </div>
     </div>
   </div>
-  <div class="row">
+ <!-- <div class="row">
     <div class="flex md3 xs6">
       <div class="item">
         <div style="background-color: rgb(230 255 145);"> 
           <h1>changes of possesion</h1> 
           <CounterBtn @click="game_data.increment_counter('changesOfPossesion')"/>
           <CounterBtn2 @click="game_data.decrement_counter('changesOfPossesion')"/>
-          <!-- <CounterDisplay :counter="store.current_counter.counter" />  -->
           <CounterDisplay :counter="game_data.get_recording_counter('changesOfPossesion')" /> 
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">

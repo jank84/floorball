@@ -133,9 +133,10 @@ function counter_factory(team1: string, team2: string) {
   return [
     {name: "passing", team: team1, counters: [0,0,0,0]},
     {name: "passing", team: team2, counters: [0,0,0,0]},
+    {name: "passing misses", team: team1, counters: [0,0,0,0]},
+    {name: "passing misses", team: team2, counters: [0,0,0,0]},
     {name: "bullies", team: team1, counters: [0,0,0,0]},
     {name: "bullies", team: team2, counters: [0,0,0,0]},
-    {name: "changesOfPossesion", team: null, counters: [0,0,0,0]},
   ]
 }
 

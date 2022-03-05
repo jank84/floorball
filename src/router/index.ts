@@ -29,6 +29,11 @@ const router = createRouter({
           name: "admin-view",
           component:AdminView,
         },
+        {
+          path: "/non-blank-goalsview",
+          name: "non-blank-goalsview",
+          component:GoalsView,
+        },
       ]
     },
     // ⬇ without nav ⬇
