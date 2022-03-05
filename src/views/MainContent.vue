@@ -11,13 +11,14 @@
         <va-button icon="admin_panel_settings" to="admin-view" color="#fff" flat :rounded="false">Admin</va-button>
       </template>
       <template #right>
-        <va-select
-          :readonly="false"
+        <!-- <va-select
+          :readonly="true"
           style="width: 23em;"
           label="Current game"
           :options="games"
           v-model="selected_game"
-        />
+        /> -->
+        <h6 style="color: white" class="display-6">Game: {{selected_game.text}} period: {{global_props_data.$state.current_game.period}}</h6>
       </template>
     </va-navbar>
   </header>
