@@ -20,6 +20,15 @@ interface Game_status {
   goal_shots: Goal_shot[]
 }
 
+// TODO: legende
+// TODO: current game select -> text v
+// TODO: team namen über goals view. attacker in over enemy half + periode
+// TOD0: miss passes
+// undo goals
+// TODO: counter view
+// TODO: change of possesion
+// TODO: add urls to admin
+
 export const game_store = defineStore({
   id: "game",
   state: () => ({
@@ -41,7 +50,6 @@ export const game_store = defineStore({
       return (counter_name: string, team_name: string, periode: number) => get_counter(counter_name, team_name, global_props().current_game.period as number, state.current_game)
     },
     get_display_counter: (state) => {
-
       return (counter_name: string, team_name: string, periode: number) => get_counter(counter_name, team_name, global_props().current_display_game.period as number, state.current_display_game)
     },
   },
