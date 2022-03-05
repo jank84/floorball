@@ -106,7 +106,7 @@ function format_goal_shots(goal_shots: Goal_shot[]) {
     let goal_shots_filtered = goal_shots;
     // if period is not 3 == "all", filter after period
     const current_display_period = global_props_data.$state.current_display_game.period
-    if ( current_display_period != 3) {
+    if ( current_display_period != 4) {
         goal_shots_filtered = goal_shots.filter(g => g.period == current_display_period)
     } 
 

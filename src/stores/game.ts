@@ -123,11 +123,11 @@ export const game_store = defineStore({
 
 function counter_factory(team1: string, team2: string) {
   return [
-    {name: "passing", team: team1, counters: [0,0,0]},
-    {name: "passing", team: team2, counters: [0,0,0]},
-    {name: "bullies", team: team1, counters: [0,0,0]},
-    {name: "bullies", team: team2, counters: [0,0,0]},
-    {name: "changesOfPossesion", team: null, counters: [0,0,0]},
+    {name: "passing", team: team1, counters: [0,0,0,0]},
+    {name: "passing", team: team2, counters: [0,0,0,0]},
+    {name: "bullies", team: team1, counters: [0,0,0,0]},
+    {name: "bullies", team: team2, counters: [0,0,0,0]},
+    {name: "changesOfPossesion", team: null, counters: [0,0,0,0]},
   ]
 }
 
@@ -138,8 +138,8 @@ function get_counter(counter_name: string, team_name: string, periode: number, g
       console.error("increment_counter fail. counter_name team_name",counter_name, team_name)
       return -1
     }
-    if (periode == 3) {
-      // period == 3 --> get sum of all periods
+    if (periode == 4) {
+      // period == 4 --> get sum of all periods
       return current_counter.counters.reduce((a,b) => a+b )
     } else {
       return current_counter.counters[periode]
