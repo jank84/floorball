@@ -82,7 +82,7 @@
     <!-- <GoalShotLegend style="font-size: x-large;margin: 0em 5em;"/> -->
 
     <div>
-        <va-option-list
+        <va-option-list style="margin: .2em 5em;"
             :options="goal_kind_options"
             v-model="goal_kind_option_selected"
             valueBy="altValue"
@@ -90,12 +90,30 @@
         />
         <!-- Selected: <pre> {{ listValue }} </pre> -->
     </div>
+    
+    <va-switch v-model="filter_after_time" style="margin: .2em 5em;">
+        <template #innerLabel>
+            Nach zeit filtern
+        </template>
+    </va-switch>
+
+    <va-slider style="margin: 1em 5em;" label="Zeitfenster zu zeigen" v-model="time_slice_to_show" track-label-visible :min="1" :max="time_window_slider_max" />
+
+    <va-slider style="margin: 1em 5em;" v-model="time_window_slider_selected" track-label-visible :min="time_slider_min" :max="time_slider_max">
+<!-- trackLabel -->
+        <template #trackLabel>
+            <div style="font-style: italic; color: black;">LABEL SLOT</div>
+        </template>
+        <template #label>
+            <div>Min: {{new Date(time_slider_min * 1000)}}<br /><br />Max: {{new Date(time_slider_max * 1000)}}</div>
+        </template>
+    </va-slider>
 
     <!-- <va-slider v-model="Time" /> -->
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, computed } from "vue"
+import { Ref, ref, computed, watch } from "vue"
 import { game_store } from "@/stores/game";
 import { global_props } from "@/stores/global_props";
 
@@ -137,26 +155,42 @@ const goal_kind_option_selected_converted = computed(() => goal_kind_option_sele
 const gate_pos_right = { x: 680, y: 190,};
 const gate_pos_left = { x: 60, y: 190,};
 
+const filter_after_time = ref(false)
 
+const time_window_slider_selected = ref(0)
+const time_window_slider_max = ref()
 
-
+const time_slice_to_show = ref(60)
 
 const goal_shots = computed(() => game_data.$state.current_display_game.goal_shots as Goal_shot[])
-
-
-
-// Ref<Goal_shot[]>
-
-
 const goal_shots_filter_by_kind = computed(() => goal_shots.value.filter(g => goal_kind_option_selected_converted.value.includes(g.kind)))
 
 
+const time_slider_min = computed(() =>  Math.min(...goal_shots_filter_by_kind.value.map(e=>e.timestamp.seconds)))
+const time_slider_max = computed(() =>  Math.max(...goal_shots_filter_by_kind.value.map(e=>e.timestamp.seconds)) + time_slice_to_show.value)
+watch(time_slider_min, (currentValue, oldValue) => {
+    time_window_slider_selected.value = currentValue
+});
+
+watch(time_slider_min, (currentValue, oldValue) => {
+    time_window_slider_max.value = time_slider_max.value - time_slider_min.value
+});
+
+
+
+const goal_shots_filter_by_time = computed(() => {
+    if (filter_after_time.value) {
+        return goal_shots_filter_by_kind.value.filter(g => time_window_slider_selected.value < g.timestamp.seconds && g.timestamp.seconds < (time_window_slider_selected.value + time_slice_to_show.value))
+    }
+    return goal_shots_filter_by_kind.value
+})
+
 const goal_shots_formated = computed(() =>{
-    let goal_shots_filtered = goal_shots_filter_by_kind.value;
-    // if period is not 3 == "all", filter after period
+    let goal_shots_filtered = goal_shots_filter_by_time.value;
+    // if period is not 4 == "all", filter after period
     const current_display_period = global_props_data.$state.current_display_game.period
     if ( current_display_period != 4) {
-        goal_shots_filtered = goal_shots_filter_by_kind.value.filter(g => g.period == current_display_period)
+        goal_shots_filtered = goal_shots_filter_by_time.value.filter(g => g.period == current_display_period)
     } 
 
     return goal_shots_filtered.map(g => {

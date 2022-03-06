@@ -10,6 +10,7 @@
           <va-button-dropdown outline color="#fff">
             <va-button icon="open_in_new" to="goalsview" flat :rounded="false">Open goalsview</va-button>
             <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter</va-button>
+            <va-button icon="open_in_new" to="goalsviewctrl" flat :rounded="false">Open goalsview ctrl blank <va-icon  name="new_releases" /></va-button>
           </va-button-dropdown>
         <va-button icon="admin_panel_settings" to="admin-view" color="#fff" flat :rounded="false">Admin</va-button>
       </template>
