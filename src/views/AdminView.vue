@@ -113,6 +113,7 @@
       <div class="flex md12">
         <div class="item">
           <va-button icon="open_in_new" to="goalsview" flat :rounded="false">Open goalsview blank</va-button>
+          <va-button icon="open_in_new" to="goalsviewctrl" flat :rounded="false">Open goalsview ctrl blank</va-button>
           <va-button icon="open_in_new" to="counter-display-view" flat :rounded="false">Open counter display blank</va-button>
           <!-- <va-button icon="open_in_new" to="counter-display-view-old" flat :rounded="false">Open counter display old blank</va-button> -->
           <va-button icon="open_in_new" to="/blank/multi-counterview" flat :rounded="false">Open multi counter view blank</va-button>

@@ -3,6 +3,7 @@ import MainContent from "@/views/MainContent.vue";
 import MultiCounterView from "@/views/MultiCounterView.vue";
 import GoalShots from "@/views/GoalShots.vue";
 import FooView from "@/views/FooView.vue";
+import GoalsViewCtrl from "@/views/GoalsViewCtrl.vue";
 import GoalsView from "@/views/GoalsView.vue";
 import AdminView from "@/views/AdminView.vue";
 import CounterDisplayView from "@/views/CounterDisplayView.vue";
@@ -68,6 +69,11 @@ const router = createRouter({
       path: "/goalsview",
       name: "goalsview",
       component:GoalsView,
+    },
+    {
+      path: "/goalsviewctrl",
+      name: "goals-view-ctrl",
+      component:GoalsViewCtrl,
     },
   ],
 });
